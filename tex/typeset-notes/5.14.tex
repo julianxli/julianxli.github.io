@@ -1,0 +1,612 @@
+\section{2026-05-14}
+
+\subsection{Smooth Structures and Smooth Manifolds}
+
+\begin{definition}
+Let $M$ be a topological manifold. A \vocab{smooth structure} on $M$ is a maximal smooth atlas $\mathcal A$ on $M$.
+\end{definition}
+
+\begin{definition}
+A \vocab{smooth manifold} is a pair
+\[
+  (M^n,\mathcal A),
+\]
+where $M^n$ is a topological $n$-manifold and $\mathcal A$ is a smooth structure on $M$.
+\end{definition}
+
+Usually we use the shorthand notation
+\[
+  M=(M^n,\mathcal A).
+\]
+If
+\[
+  (U,\varphi)\in \mathcal A,
+\]
+then $(U,\varphi)$ is called a smooth chart of $M$.
+
+\begin{remark}
+The same construction can be modified by replacing ``smooth'' with other regularity classes. For example, one can define
+\[
+  C^k\text{-manifolds},\qquad C^\omega\text{-manifolds},
+\]
+where $C^\omega$ means real analytic.
+\end{remark}
+
+\subsection{Local Properties of Smooth Charts}
+
+\begin{exercise}
+Let $(U,\varphi)\in\mathcal A$, and let $U'\subset U$ be open. Then
+\[
+  (U',\varphi|_{U'})\in \mathcal A.
+\]
+\end{exercise}
+
+\begin{proof}
+Since $U'\subset U$ is open, $\varphi(U')$ is open in $\RR^n$, and
+\[
+  \varphi|_{U'}:U'\to \varphi(U')
+\]
+is a homeomorphism. Thus $(U',\varphi|_{U'})$ is a chart.
+
+It is smoothly compatible with every chart in $\mathcal A$, because its transition maps are restrictions of the corresponding transition maps for $(U,\varphi)$. Since $\mathcal A$ is maximal, it follows that
+\[
+  (U',\varphi|_{U'})\in \mathcal A.
+\]
+\end{proof}
+
+\begin{exercise}
+Let $(U,\varphi)\in\mathcal A$, and let
+\[
+  \chi:\varphi(U)\to \chi(\varphi(U))\subset \RR^n
+\]
+be a diffeomorphism onto an open subset of $\RR^n$. Then
+\[
+  (U,\chi\circ\varphi)\in \mathcal A.
+\]
+\end{exercise}
+
+\begin{proof}
+The map
+\[
+  \chi\circ\varphi:U\to \chi(\varphi(U))
+\]
+is a homeomorphism, hence $(U,\chi\circ\varphi)$ is a chart.
+
+For any $(V,\psi)\in\mathcal A$, the transition map
+\[
+  \psi\circ(\chi\circ\varphi)^{-1}
+  =
+  \psi\circ\varphi^{-1}\circ\chi^{-1}
+\]
+is smooth, because it is a composition of smooth maps. Similarly,
+\[
+  (\chi\circ\varphi)\circ\psi^{-1}
+  =
+  \chi\circ\varphi\circ\psi^{-1}
+\]
+is smooth. Hence $(U,\chi\circ\varphi)$ is smoothly compatible with all charts in $\mathcal A$. By maximality,
+\[
+  (U,\chi\circ\varphi)\in\mathcal A.
+\]
+\end{proof}
+
+\begin{exercise}
+Let $\varphi:U\to \RR^n$ be an injective map, where $U\subset M$ is open. Suppose that for every $p\in U$, there exists an open neighborhood $U_p\subset U$ of $p$ such that
+\[
+  (U_p,\varphi|_{U_p})\in\mathcal A.
+\]
+Then
+\[
+  (U,\varphi)\in\mathcal A.
+\]
+\end{exercise}
+
+\begin{proof}
+The condition is local. Since each $\varphi|_{U_p}$ is a coordinate map, the image $\varphi(U_p)$ is open in $\RR^n$. Because
+\[
+  \varphi(U)=\bigcup_{p\in U}\varphi(U_p),
+\]
+the image $\varphi(U)$ is open in $\RR^n$.
+
+Moreover, $\varphi$ is a homeomorphism onto its image because this can be checked locally on the open cover $\{U_p\}_{p\in U}$. Thus $(U,\varphi)$ is a chart.
+
+It remains to check smooth compatibility. Let $(V,\psi)\in\mathcal A$. For each $p\in U\cap V$, choose $U_p$ as above. On
+\[
+  \varphi(U_p\cap V),
+\]
+the transition map
+\[
+  \psi\circ\varphi^{-1}
+\]
+is equal to
+\[
+  \psi\circ(\varphi|_{U_p})^{-1},
+\]
+which is smooth because $(U_p,\varphi|_{U_p})\in\mathcal A$. Hence $\psi\circ\varphi^{-1}$ is smooth locally, and therefore smooth. The other transition map is treated similarly.
+
+Thus $(U,\varphi)$ is smoothly compatible with all charts in $\mathcal A$. By maximality,
+\[
+  (U,\varphi)\in\mathcal A.
+\]
+\end{proof}
+
+\begin{example}
+Let $M=\RR$, and let $\mathcal A$ be the standard smooth structure, namely the maximal smooth atlas containing
+\[
+  (\RR,\id_{\RR}).
+\]
+Let $\mathcal A^*$ be the maximal smooth atlas containing
+\[
+  (\RR,\varphi),
+  \qquad
+  \varphi(x)=x^3.
+\]
+Then
+\[
+  \mathcal A^*\neq \mathcal A.
+\]
+Indeed, the two charts $(\RR,\id_{\RR})$ and $(\RR,\varphi)$ are not smoothly compatible, because one transition map is
+\[
+  \id_{\RR}\circ\varphi^{-1}(x)=\sqrt[3]{x},
+\]
+which is not smooth at $0$.
+
+However, the smooth manifolds
+\[
+  (\RR,\mathcal A)
+  \qquad\text{and}\qquad
+  (\RR,\mathcal A^*)
+\]
+are diffeomorphic. For example, the map
+\[
+  \varphi:(\RR,\mathcal A^*)\to(\RR,\mathcal A),
+  \qquad
+  x\mapsto x^3,
+\]
+is a diffeomorphism.
+\end{example}
+
+\begin{remark}
+This example shows that two smooth structures on the same underlying topological manifold may be different, even though the resulting smooth manifolds can still be diffeomorphic.
+\end{remark}
+
+\subsection{Standard Examples and Open Submanifolds}
+
+\begin{example}
+The standard smooth structure on $\RR^n$ is the maximal smooth atlas containing
+\[
+  (\RR^n,\id_{\RR^n}).
+\]
+\end{example}
+
+\begin{theorem}
+Let $(M,\mathcal A)$ be a smooth manifold, and let
+\[
+  M'\subset M
+\]
+be open. Define
+\[
+  \mathcal A'
+  :=
+  \{(U,\varphi)\in\mathcal A\mid U\subset M'\}.
+\]
+Then
+\[
+  (M',\mathcal A')
+\]
+is also a smooth manifold.
+\end{theorem}
+
+\begin{proof}
+Since $M'\subset M$ is open, it is a topological manifold with the subspace topology.
+
+The charts in $\mathcal A'$ cover $M'$. Indeed, if $p\in M'$, choose a chart $(U,\varphi)\in\mathcal A$ with $p\in U$. Then
+\[
+  U\cap M'
+\]
+is open in $U$, so by the restriction property,
+\[
+  (U\cap M',\varphi|_{U\cap M'})\in\mathcal A.
+\]
+Moreover its domain is contained in $M'$, hence it belongs to $\mathcal A'$.
+
+Smooth compatibility is inherited from $\mathcal A$. Therefore $\mathcal A'$ is a smooth atlas on $M'$. Taking the maximal smooth atlas determined by $\mathcal A'$, we obtain the induced smooth structure on $M'$.
+\end{proof}
+
+\begin{example}
+Let $S^n$ be the unit sphere. Its standard smooth structure is the maximal smooth atlas containing the stereographic projection charts
+\[
+  (U_N,\varphi_N),
+  \qquad
+  (U_S,\varphi_S),
+\]
+where $U_N=S^n\setminus\{N\}$ and $U_S=S^n\setminus\{S\}$.
+
+Equivalently, it is the maximal smooth atlas containing the usual graph charts
+\[
+  (U_i^\pm,\varphi_i^\pm).
+\]
+\end{example}
+
+\begin{example}
+Let $V$ be an $n$-dimensional real vector space. Define
+\[
+  \mathcal A'
+  :=
+  \left\{
+    (V,\varphi)
+    \mid
+    \varphi:V\to \RR^n \text{ is a vector space isomorphism}
+  \right\}.
+\]
+Then $\mathcal A'$ is a smooth atlas, because the transition maps are linear isomorphisms
+\[
+  \RR^n\to \RR^n,
+\]
+hence smooth. The standard smooth structure on $V$ is the maximal smooth atlas containing $\mathcal A'$.
+\end{example}
+
+\begin{remark}
+In general, if $\mathcal A$ is the maximal smooth atlas containing a smooth atlas $\mathcal A'$, and if a chart $(U,\varphi)$ is smoothly compatible with every chart in $\mathcal A'$, then
+\[
+  \mathcal A'\cup\{(U,\varphi)\}
+\]
+is still a smooth atlas. Hence
+\[
+  (U,\varphi)\in\mathcal A.
+\]
+\end{remark}
+
+\begin{remark}
+Reading examples include
+\[
+  S^n,\qquad \mathbb{RP}^n,\qquad \operatorname{GL}(n,\RR),
+\]
+and product manifolds.
+\end{remark}
+
+\begin{remark}
+Digression.
+
+Does every topological manifold have a smooth structure?
+
+\[
+  n\le 3:\quad \text{Yes, and unique up to diffeomorphism;}
+\]
+\[
+  n\ge 4:\quad \text{No, and smooth structure may not be unique;}
+\]
+
+\end{remark}
+
+\begin{remark}
+Subquestion.
+
+Are there exotic smooth structures on $S^n$?
+
+Here ``exotic'' means not diffeomorphic to the standard one.
+
+\[
+  n\le 3:\quad \text{no;}
+\]
+\[
+  n=4:\quad \text{unknown; \textit{Smooth Poincaré Conjecture}}
+\]
+\[
+  n\ge 5:\quad \text{almost completely understood.} 
+\]
+On spheres are related to the group of homotopy spheres $\Theta_n$ which can be characterized using algebraic topology. case $n=126$ is often noted as unclear in this context.
+\end{remark}
+
+\subsection{Smooth Manifold Construction Lemma}
+
+\begin{theorem}[Smooth Manifold Construction Lemma]
+Let $M$ be a set, and let
+\[
+  \{\varphi_\alpha:U_\alpha\to \RR^n\}_{\alpha\in I}
+\]
+be a collection of injective maps, where $U_\alpha\subset M$. Suppose the following conditions hold.
+
+\begin{enumerate}
+  \item For every $\alpha,\beta\in I$,
+  \[
+    \varphi_\alpha(U_\alpha\cap U_\beta)
+  \]
+  is open in $\RR^n$.
+
+  \item For every $\alpha,\beta\in I$, the transition map
+  \[
+    \varphi_\alpha\circ\varphi_\beta^{-1}
+    :
+    \varphi_\beta(U_\alpha\cap U_\beta)
+    \to
+    \varphi_\alpha(U_\alpha\cap U_\beta)
+  \]
+  is smooth.
+
+  \item The set $M$ is covered by countably many of the sets $U_\alpha$.
+
+  \item For any $p,q\in M$ with $p\neq q$, either there exists some $\alpha\in I$ such that
+  \[
+    p,q\in U_\alpha,
+  \]
+  or there exist $\alpha,\beta\in I$ such that
+  \[
+    p\in U_\alpha,\qquad q\in U_\beta,\qquad U_\alpha\cap U_\beta=\varnothing.
+  \]
+\end{enumerate}
+
+Then $M$ has a unique topology and a unique smooth structure such that all pairs
+\[
+  (U_\alpha,\varphi_\alpha)
+\]
+are smooth charts.
+\end{theorem}
+
+\begin{proof}
+Define a topology on $M$ by declaring that a subset $A\subset M$ is open if and only if
+\[
+  \varphi_\alpha(A\cap U_\alpha)
+\]
+is open in $\RR^n$ for every $\alpha\in I$.
+
+With this topology, each $U_\alpha$ is open in $M$, and each
+\[
+  \varphi_\alpha:U_\alpha\to \varphi_\alpha(U_\alpha)
+\]
+is a homeomorphism onto an open subset of $\RR^n$.
+
+The first two assumptions imply that the charts $(U_\alpha,\varphi_\alpha)$ are smoothly compatible. The countability assumption gives second-countability. The separation assumption gives the Hausdorff property. Therefore $M$ becomes a topological $n$-manifold.
+
+Finally, let $\mathcal A$ be the maximal smooth atlas containing all charts
+\[
+  (U_\alpha,\varphi_\alpha).
+\]
+This gives the desired smooth structure. Uniqueness follows because the topology and the maximal smooth atlas are forced by the given charts.
+\end{proof}
+
+\subsection{Grassmannians}
+
+\begin{example}[Grassmannians]
+Let
+\[
+  1\le k\le n.
+\]
+The Grassmannian is
+\[
+  \operatorname{Gr}_k(\RR^n)
+  :=
+  \{V\subset \RR^n\mid V \text{ is a linear subspace and } \dim V=k\}.
+\]
+In particular,
+\[
+  \operatorname{Gr}_1(\RR^n)=\mathbb{RP}^{n-1}.
+\]
+\end{example}
+
+Let
+\[
+  I
+  :=
+  \left\{
+    (P,Q)
+    \ \middle|\
+    \begin{array}{l}
+      P,Q\subset \RR^n \text{ are linear subspaces,}\\
+      \RR^n=P\oplus Q,\ \dim P=k,\ \dim Q=n-k
+    \end{array}
+  \right\}.
+\]
+For
+\[
+  \alpha=(P,Q)\in I,
+\]
+define
+\[
+  U_\alpha
+  :=
+  \{V\in \operatorname{Gr}_k(\RR^n)\mid V\cap Q=\{0\}\}.
+\]
+
+\begin{lemma}
+For every $V\in U_\alpha$, there exists a unique linear map
+\[
+  A_{P,Q,V}:P\to Q
+\]
+such that
+\[
+  V=\{x+A_{P,Q,V}x\mid x\in P\}.
+\]
+\end{lemma}
+
+\begin{proof}
+Since
+\[
+  \RR^n=P\oplus Q,
+\]
+every vector in $\RR^n$ can be written uniquely as $x+y$ with $x\in P$ and $y\in Q$.
+
+If $V\in U_\alpha$, then
+\[
+  V\cap Q=\{0\}.
+\]
+The projection
+\[
+  \pi_P:V\to P
+\]
+is injective, because if $\pi_P(v)=0$, then $v\in Q$, hence $v\in V\cap Q=\{0\}$. Since
+\[
+  \dim V=\dim P=k,
+\]
+the map $\pi_P:V\to P$ is an isomorphism.
+
+Therefore, for each $x\in P$, there is a unique vector $v\in V$ with $\pi_P(v)=x$. Write
+\[
+  v=x+A_{P,Q,V}x
+\]
+with $A_{P,Q,V}x\in Q$. This defines a unique linear map
+\[
+  A_{P,Q,V}:P\to Q.
+\]
+Hence
+\[
+  V=\{x+A_{P,Q,V}x\mid x\in P\}.
+\]
+\end{proof}
+
+Define
+\[
+  \varphi_\alpha:U_\alpha\to L(P,Q)
+\]
+by
+\[
+  \varphi_\alpha(V)=A_{P,Q,V}.
+\]
+Since
+\[
+  L(P,Q)\cong \RR^{k(n-k)}
+\]
+after choosing bases of $P$ and $Q$, this gives a coordinate chart on the Grassmannian.
+
+\subsection{Manifolds with Boundary}
+
+\begin{definition}
+Let
+\[
+  \mathbb H^n
+  :=
+  \{x=(x^1,\dots,x^n)\in\RR^n\mid x^n\ge 0\}
+\]
+be the closed upper half-space. Its boundary is
+\[
+  \partial \mathbb H^n
+  :=
+  \{x\in\mathbb H^n\mid x^n=0\}.
+\]
+\end{definition}
+
+\begin{definition}
+Let $M$ be an $n$-manifold with boundary. A point $p\in M$ is called a \vocab{boundary point} if there exists a chart
+\[
+  (U,\varphi)
+\]
+such that
+\[
+  p\in U
+  \qquad\text{and}\qquad
+  \varphi(p)\in \partial\mathbb H^n.
+\]
+The set of all boundary points is denoted by
+\[
+  \partial M.
+\]
+\end{definition}
+
+For manifolds with boundary, transition maps are maps between open subsets of $\mathbb H^n$. Their smoothness means that all partial derivatives exist and extend smoothly up to the boundary. Equivalently, locally they extend to smooth maps on open subsets of $\RR^n$.
+
+\begin{lemma}[Invariance of boundary]
+Let $A,B\subset \mathbb H^n$ be open subsets in the subspace topology, and let
+\[
+  F:A\to B
+\]
+be a diffeomorphism. Then
+\[
+  F(A\cap \partial \mathbb H^n)=B\cap \partial \mathbb H^n.
+\]
+\end{lemma}
+
+\begin{proof}
+It suffices to prove that
+\[
+  F(A\cap \partial\mathbb H^n)\subset B\cap \partial\mathbb H^n,
+\]
+because the reverse inclusion follows by applying the same argument to
+$F^{-1}$.
+
+Suppose, for contradiction, that there exists
+\[
+  x\in A\cap \partial\mathbb H^n
+\]
+such that
+\[
+  y:=F(x)\in \operatorname{Int}\mathbb H^n.
+\]
+Let
+\[
+  G:=F^{-1}.
+\]
+Since $y$ is an interior point of $\mathbb H^n$, there is an ordinary open
+neighborhood $W\subset \mathbb R^n$ of $y$ such that
+\[
+  W\subset B\cap \operatorname{Int}\mathbb H^n.
+\]
+Write
+\[
+  G=(G^1,\ldots,G^n).
+\]
+Because $G(W)\subset \mathbb H^n$, we have
+\[
+  G^n(z)\ge 0
+\]
+for all $z\in W$. Moreover,
+\[
+  G^n(y)=x^n=0,
+\]
+because $x\in\partial\mathbb H^n$. Thus $G^n$ has a local minimum at $y$.
+Hence
+\[
+  dG^n_y=0.
+\]
+Therefore the image of $dG_y$ is contained in the hyperplane
+\[
+  \mathbb R^{n-1}\times\{0\},
+\]
+so
+\[
+  \operatorname{rank} dG_y\le n-1.
+\]
+
+On the other hand, since $F$ and $G$ are inverse diffeomorphisms, the derivative
+$dG_y$ must be invertible. This is a contradiction. Hence $F(x)$ cannot be an
+interior point of $\mathbb H^n$, and therefore
+\[
+  F(x)\in \partial\mathbb H^n.
+\]
+\end{proof}
+
+\begin{lemma}
+If $p\in M$ is a boundary point, then for every chart $(U,\varphi)$ containing $p$,
+\[
+  \varphi(p)\in \partial\mathbb H^n.
+\]
+\end{lemma}
+
+\begin{proof}
+Since $p$ is a boundary point, by definition there exists a chart $(V,\psi)$
+containing $p$ such that
+\[
+  \psi(p)\in \partial\mathbb H^n.
+\]
+Let $(U,\varphi)$ be any chart containing $p$. On the overlap $U\cap V$, the
+transition map
+\[
+  \varphi\circ\psi^{-1}:
+  \psi(U\cap V)\to \varphi(U\cap V)
+\]
+is a diffeomorphism between open subsets of $\mathbb H^n$. By the invariance
+of boundary for diffeomorphisms between open subsets of $\mathbb H^n$, it maps
+boundary points of $\mathbb H^n$ to boundary points of $\mathbb H^n$.
+
+Since
+\[
+  \psi(p)\in \partial\mathbb H^n,
+\]
+we obtain
+\[
+  \varphi(p)
+  =
+  (\varphi\circ\psi^{-1})(\psi(p))
+  \in \partial\mathbb H^n.
+\]
+Therefore every chart containing $p$ sends $p$ to $\partial\mathbb H^n$.
+\end{proof}

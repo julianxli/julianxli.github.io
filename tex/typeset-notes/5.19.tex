@@ -1,0 +1,424 @@
+\section{2026-05-19}
+
+\subsection{Existence of Partitions of Unity}
+
+\begin{theorem}
+Let $M$ be a smooth manifold, possibly with boundary. Let
+\[
+  \mathcal X=\{X_\alpha\}_{\alpha\in A}
+\]
+be an indexed open cover of $M$. Then there exists a smooth partition of unity
+subordinate to $\mathcal X$.
+\end{theorem}
+
+\begin{proof}
+For simplicity, assume first that $M$ has no boundary.
+
+Since each $X_\alpha$ is open in $M$, it is a smooth manifold in its own right. Hence each $X_\alpha$ has a basis of regular coordinate balls. Therefore there exists a basis
+\[
+  \mathcal B_\alpha
+\]
+of regular coordinate balls for $X_\alpha$.
+
+Thus
+\[
+  \bigcup_{\alpha\in A}\mathcal B_\alpha
+\]
+is a basis for $M$. Since $M$ is a smooth manifold, it is paracompact. Hence the open cover $\mathcal X$ has a countable locally finite refinement
+\[
+  \{B_i\}_{i=1}^\infty
+\]
+consisting of elements of
+\[
+  \bigcup_{\alpha\in A}\mathcal B_\alpha.
+\]
+We may choose these balls so that the family of closures
+\[
+  \{\overline{B_i}\}_{i=1}^\infty
+\]
+is also locally finite.
+
+For each $B_i$, choose an index
+\[
+  \alpha(i)\in A
+\]
+such that
+\[
+  B_i\subset X_{\alpha(i)}.
+\]
+Choose a smaller coordinate ball
+\[
+  B_i'\subset B_i
+\]
+such that
+\[
+  \overline{B_i'}\subset B_i.
+\]
+Since $B_i$ is a coordinate ball, choose a smooth coordinate map
+\[
+  \varphi_i:B_i\to \RR^n
+\]
+such that
+\[
+  \varphi_i(B_i)=B_{r_i}(0),
+  \qquad
+  \varphi_i(B_i')=B_{r_i'}(0),
+  \qquad
+  r_i'<r_i.
+\]
+
+Define a smooth function
+\[
+  f_i:M\to \RR
+\]
+by
+\[
+  f_i(p)=
+  \begin{cases}
+    H_i(\varphi_i(p)), & p\in B_i,\\
+    0, & p\in M\setminus B_i,
+  \end{cases}
+\]
+where
+\[
+  H_i:\RR^n\to\RR
+\]
+is a smooth bump function satisfying
+\[
+  H_i>0
+  \quad\text{on }\varphi_i(B_i'),
+\]
+and
+\[
+  H_i=0
+  \quad\text{on }\RR^n\setminus \varphi_i(B_i).
+\]
+Then $f_i$ is well-defined and smooth, and
+\[
+  \operatorname{supp} f_i\subset \overline{B_i}\subset X_{\alpha(i)}.
+\]
+
+Now define
+\[
+  f:M\to\RR
+\]
+by
+\[
+  f(p)=\sum_i f_i(p).
+\]
+Since the family
+\[
+  \{\overline{B_i}\}_{i=1}^\infty
+\]
+is locally finite, the sum has only finitely many nonzero terms in a neighborhood of each point. Hence $f$ is smooth.
+
+Moreover, the sets $B_i'$ still cover $M$, so for every $p\in M$ there exists some $i$ such that
+\[
+  p\in B_i',
+\]
+and therefore
+\[
+  f_i(p)>0.
+\]
+Thus
+\[
+  f(p)>0
+\]
+for every $p\in M$.
+
+Define
+\[
+  g_i(p):=\frac{f_i(p)}{f(p)}.
+\]
+Then each $g_i$ is well-defined and smooth, and
+\[
+  0\le g_i(p)\le 1.
+\]
+Moreover,
+\[
+  \sum_i g_i(p)
+  =
+  \frac{\sum_i f_i(p)}{f(p)}
+  =
+  1.
+\]
+Also,
+\[
+  \operatorname{supp} g_i
+  =
+  \operatorname{supp} f_i
+  \subset \overline{B_i}
+  \subset X_{\alpha(i)}.
+\]
+
+For each $\alpha\in A$, define
+\[
+  \chi_\alpha:M\to\RR
+\]
+by
+\[
+  \chi_\alpha
+  :=
+  \sum_{\alpha(i)=\alpha} g_i.
+\]
+Since the family $\{\operatorname{supp}g_i\}$ is locally finite, this sum is locally finite. Hence each $\chi_\alpha$ is smooth.
+
+Furthermore,
+\[
+  \operatorname{supp}\chi_\alpha
+  \subset
+  \bigcup_{\alpha(i)=\alpha}\operatorname{supp}g_i
+  \subset
+  X_\alpha,
+\]
+and
+\[
+  \sum_{\alpha\in A}\chi_\alpha
+  =
+  \sum_i g_i
+  =
+  1.
+\]
+Thus
+\[
+  \{\chi_\alpha\}_{\alpha\in A}
+\]
+is the desired smooth partition of unity subordinate to $\mathcal X$.
+\end{proof}
+
+\subsection{Complex Projective Space}
+
+\begin{example}[Complex projective spaces]
+Let
+\[
+  \CC_*^{n+1}:=\CC^{n+1}\setminus\{0\}.
+\]
+Define an equivalence relation on $\CC_*^{n+1}$ by
+\[
+  z\sim \lambda z,
+  \qquad
+  \lambda\in\CC^*.
+\]
+The quotient space is called the \vocab{complex projective space}
+\[
+  \CP^n
+  :=
+  \CC_*^{n+1}/\sim.
+\]
+Equivalently,
+\[
+  \CP^n
+  =
+  \{[z]\mid z\in \CC_*^{n+1}\}.
+\]
+For
+\[
+  z=(z^1,\dots,z^{n+1})\in \CC_*^{n+1},
+\]
+we write
+\[
+  [z]=[z^1:z^2:\cdots:z^{n+1}].
+\]
+Thus
+\[
+  [z^1:\cdots:z^{n+1}]
+  =
+  [\lambda z^1:\cdots:\lambda z^{n+1}]
+\]
+for all
+\[
+  \lambda\in\CC^*.
+\]
+\end{example}
+
+For each
+\[
+  i=1,\dots,n+1,
+\]
+define
+\[
+  U_i
+  :=
+  \{[z]\in\CP^n\mid z^i\neq 0\}.
+\]
+Then
+\[
+  \{U_i\}_{i=1}^{n+1}
+\]
+is an open cover of $\CP^n$.
+
+Define
+\[
+  \varphi_i:U_i\to\CC^n
+\]
+by
+\[
+  \varphi_i([z])
+  =
+  \left(
+    \frac{z^1}{z^i},
+    \dots,
+    \frac{z^{i-1}}{z^i},
+    \frac{z^{i+1}}{z^i},
+    \dots,
+    \frac{z^{n+1}}{z^i}
+  \right).
+\]
+This is well-defined because multiplying $z$ by a nonzero complex scalar does not change any quotient
+\[
+  \frac{z^j}{z^i}.
+\]
+
+The inverse map is given by
+\[
+  \varphi_i^{-1}(w^1,\dots,w^n)
+  =
+  [w^1:\cdots:w^{i-1}:1:w^i:\cdots:w^n].
+\]
+Hence each
+\[
+  (U_i,\varphi_i)
+\]
+is a chart for $\CP^n$.
+
+\begin{remark}
+The space $\CP^n$ is naturally a complex manifold of complex dimension $n$.
+Equivalently, it is a smooth real manifold of real dimension
+\[
+  2n.
+\]
+\end{remark}
+
+\begin{claim*}
+The charts
+\[
+  (U_i,\varphi_i),
+  \qquad
+  i=1,\dots,n+1,
+\]
+make $\CP^n$ into a complex manifold.
+\end{claim*}
+
+\begin{proof}
+We need to check that the transition maps are holomorphic.
+
+For
+\[
+  i,j\in\{1,\dots,n+1\},
+\]
+we have
+\[
+  U_i\cap U_j
+  =
+  \{[z]\in\CP^n\mid z^i\neq 0,\ z^j\neq 0\}.
+\]
+The transition map is
+\[
+  \varphi_j\circ \varphi_i^{-1}
+  :
+  \varphi_i(U_i\cap U_j)
+  \to
+  \varphi_j(U_i\cap U_j).
+\]
+
+Assume, for simplicity, that
+\[
+  i<j.
+\]
+Let
+\[
+  (w^1,\dots,w^n)\in \varphi_i(U_i\cap U_j).
+\]
+Under the inverse of the $i$-th chart, this point corresponds to
+\[
+  [z]
+  =
+  [w^1:\cdots:w^{i-1}:1:w^i:\cdots:w^n].
+\]
+In homogeneous coordinates, this means
+\[
+  z^i=1,
+\]
+and the other coordinates are the entries of
+\[
+  (w^1,\dots,w^n).
+\]
+
+Since the point lies in
+\[
+  U_i\cap U_j,
+\]
+we also have
+\[
+  z^j\neq 0.
+\]
+Passing from the $i$-th chart to the $j$-th chart means rescaling the homogeneous coordinates by dividing every coordinate by $z^j$. Thus
+\[
+  [z^1:\cdots:z^{i-1}:1:z^{i+1}:\cdots:z^{j}:\cdots:z^{n+1}]
+\]
+is rewritten as
+\[
+  \left[
+    \frac{z^1}{z^j}:
+    \cdots:
+    \frac{z^{i-1}}{z^j}:
+    \frac{1}{z^j}:
+    \frac{z^{i+1}}{z^j}:
+    \cdots:
+    1:
+    \cdots:
+    \frac{z^{n+1}}{z^j}
+  \right].
+\]
+
+Therefore the transition map
+\[
+  \varphi_j\circ\varphi_i^{-1}
+\]
+is given componentwise by functions of the form
+\[
+  \frac{z^k}{z^j}
+  \qquad\text{or}\qquad
+  \frac{1}{z^j}.
+\]
+Equivalently, in the $i$-th affine coordinates, the components are functions of the form
+\[
+  \frac{w^a}{w^b}
+  \qquad\text{or}\qquad
+  \frac{1}{w^b},
+\]
+on the open set where
+\[
+  w^b\neq 0.
+\]
+
+These functions are holomorphic. Hence
+\[
+  \varphi_j\circ\varphi_i^{-1}
+\]
+is holomorphic.
+
+Similarly,
+\[
+  \varphi_i\circ\varphi_j^{-1}
+\]
+is holomorphic. Therefore the charts are holomorphically compatible.
+
+Hence $\CP^n$ is a complex manifold.
+\end{proof}
+
+\begin{remark}
+Since every holomorphic map is smooth as a real map, the same atlas also gives
+$\CP^n$ the structure of a smooth real manifold of real dimension
+\[
+  2n.
+\]
+\end{remark}
+
+\begin{definition}
+The smooth structure on $\CP^n$ determined by the atlas
+\[
+  \{(U_i,\varphi_i)\}_{i=1}^{n+1}
+\]
+is called the standard smooth structure on complex projective space.
+\end{definition}

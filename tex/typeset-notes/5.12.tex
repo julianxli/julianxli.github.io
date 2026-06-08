@@ -1,0 +1,699 @@
+\section{2026-05-12}
+
+\subsection{Real Projective Space}
+
+\begin{definition}
+The real projective space $\mathbb{RP}^n$ is defined by
+\[
+  \mathbb{RP}^n
+  :=
+  \left(\RR^{n+1} \setminus \{0\}\right)/\sim,
+\]
+where
+\[
+  x \sim y
+  \iff
+  x = \lambda y
+  \text{ for some } \lambda \in \RR \setminus \{0\}.
+\]
+Equivalently,
+\[
+  \mathbb{RP}^n
+  =
+  \left\{
+    L \subset \RR^{n+1}
+    \mid
+    L \text{ is a line through the origin}
+  \right\}.
+\]
+\end{definition}
+
+Let
+\[
+  \pi : \RR^{n+1} \setminus \{0\} \to \mathbb{RP}^n
+\]
+be the quotient map. For $x \in \RR^{n+1} \setminus \{0\}$, we write
+\[
+  \pi(x) = [x].
+\]
+The quotient topology on $\mathbb{RP}^n$ is defined as follows:
+\[
+  A \subset \mathbb{RP}^n \text{ is open}
+  \iff
+  \pi^{-1}(A) \text{ is open in } \RR^{n+1} \setminus \{0\}.
+\]
+
+Equivalently, one can also describe $\mathbb{RP}^n$ as
+\[
+  S^n/(x \sim -x).
+\]
+The quotient map is
+\[
+  \pi : S^n \to \mathbb{RP}^n,
+  \qquad
+  x \mapsto [x].
+\]
+This gives the same quotient topology on $\mathbb{RP}^n$.
+
+\begin{definition}
+A point of $\mathbb{RP}^n$ is written in homogeneous coordinates as
+\[
+  [x^1 : x^2 : \cdots : x^{n+1}].
+\]
+By definition,
+\[
+  [x^1 : x^2 : \cdots : x^{n+1}]
+  =
+  [\lambda x^1 : \lambda x^2 : \cdots : \lambda x^{n+1}]
+\]
+for every $\lambda \in \RR \setminus \{0\}$.
+\end{definition}
+
+For each $i = 1,\dots,n+1$, define
+\[
+  U_i
+  :=
+  \left\{
+    [x^1 : \cdots : x^{n+1}]
+    \in \mathbb{RP}^n
+    \mid
+    x^i \neq 0
+  \right\}.
+\]
+
+The set $U_i$ is open in $\mathbb{RP}^n$. Indeed,
+\[
+  \pi^{-1}(U_i)
+  =
+  \left\{
+    x \in \RR^{n+1} \setminus \{0\}
+    \mid
+    x^i \neq 0
+  \right\},
+\]
+which is open in $\RR^{n+1} \setminus \{0\}$. Hence $U_i$ is open by the definition of the quotient topology.
+
+Moreover, the sets $U_1,\dots,U_{n+1}$ cover $\mathbb{RP}^n$. Indeed, for every
+\[
+  [x^1 : \cdots : x^{n+1}] \in \mathbb{RP}^n,
+\]
+not all coordinates $x^1,\dots,x^{n+1}$ are zero. Hence at least one coordinate $x^i$ is nonzero, so the point lies in $U_i$.
+
+\begin{definition}
+For each $i = 1,\dots,n+1$, define
+\[
+  \varphi_i : U_i \to \RR^n
+\]
+by
+\[
+  \varphi_i\left([x^1 : \cdots : x^{n+1}]\right)
+  =
+  \left(
+    \frac{x^1}{x^i},
+    \dots,
+    \frac{x^{i-1}}{x^i},
+    \frac{x^{i+1}}{x^i},
+    \dots,
+    \frac{x^{n+1}}{x^i}
+  \right).
+\]
+\end{definition}
+
+The map $\varphi_i$ is well-defined. Indeed, if
+\[
+  [x^1 : \cdots : x^{n+1}]
+  =
+  [\lambda x^1 : \cdots : \lambda x^{n+1}],
+  \qquad \lambda \neq 0,
+\]
+then for every $j \neq i$,
+\[
+  \frac{\lambda x^j}{\lambda x^i}
+  =
+  \frac{x^j}{x^i}.
+\]
+
+The inverse map is
+\[
+  \varphi_i^{-1}(u^1,\dots,u^n)
+  =
+  [u^1 : \cdots : u^{i-1} : 1 : u^i : \cdots : u^n].
+\]
+Therefore $\varphi_i$ is a bijection. Moreover, both $\varphi_i$ and
+$\varphi_i^{-1}$ are continuous, so $\varphi_i$ is a homeomorphism.
+
+Hence
+\[
+  (U_i,\varphi_i)
+\]
+is a coordinate chart on $\mathbb{RP}^n$.
+
+\begin{theorem}
+The collection
+\[
+  \mathcal A
+  =
+  \{(U_i,\varphi_i) \mid i = 1,\dots,n+1\}
+\]
+is a smooth atlas on $\mathbb{RP}^n$.
+\end{theorem}
+
+\begin{proof}
+The sets $U_1,\dots,U_{n+1}$ cover $\mathbb{RP}^n$, so it remains to check that the charts are smoothly compatible.
+
+Let $i \neq j$. On the overlap $U_i \cap U_j$, both $x^i$ and $x^j$ are nonzero. Consider the transition map
+\[
+  \varphi_j \circ \varphi_i^{-1}.
+\]
+In the $i$-th chart, a point of $U_i$ has the form
+\[
+  [x^1 : \cdots : x^{n+1}]
+  =
+  \left[
+    \frac{x^1}{x^i}
+    :
+    \cdots
+    :
+    \frac{x^{i-1}}{x^i}
+    :
+    1
+    :
+    \frac{x^{i+1}}{x^i}
+    :
+    \cdots
+    :
+    \frac{x^{n+1}}{x^i}
+  \right].
+\]
+Passing to the $j$-th chart means dividing every coordinate by the $j$-th coordinate. Hence the transition map is given by rational functions whose denominators are nonzero on the overlap.
+
+Therefore
+\[
+  \varphi_j \circ \varphi_i^{-1}
+\]
+is smooth. Similarly,
+\[
+  \varphi_i \circ \varphi_j^{-1}
+\]
+is smooth. Thus the charts are smoothly compatible.
+
+Therefore $\mathcal A$ is a smooth atlas on $\mathbb{RP}^n$.
+\end{proof}
+
+
+\subsection{Polar Coordinates and Transition Maps}
+
+\begin{example}
+Let $M=\RR^2$.
+
+Consider polar coordinates on
+\[
+  U=\RR^2\setminus \left(\RR_{\ge 0}\times \{0\}\right).
+\]
+For $z\in U$, write $z=(z^1,z^2)$. Define
+\[
+  \varphi:U\to \RR^2
+\]
+by
+\[
+  \varphi(z)
+  =
+  \bigl(r(z),\theta(z)\bigr)
+  =
+  \bigl(\varphi^1(z),\varphi^2(z)\bigr)
+  =
+  \bigl(|z|,\arg z\bigr),
+\]
+where
+\[
+  r,\theta:U\to \RR
+\]
+are the coordinate functions.
+
+Here the image of $\varphi$ is
+\[
+  \varphi(U)=\RR_+\times (0,2\pi).
+\]
+Thus the polar coordinate chart is
+\[
+  (U,\varphi).
+\]
+\end{example}
+
+\begin{example}
+Now consider the Euclidean coordinates on
+\[
+  V=\RR^2.
+\]
+Define
+\[
+  \psi:V\to \RR^2
+\]
+by
+\[
+  \psi(z)
+  =
+  \bigl(x(z),y(z)\bigr)
+  =
+  \bigl(\psi^1(z),\psi^2(z)\bigr)
+  =
+  (z^1,z^2),
+\]
+where
+\[
+  x,y:\RR^2\to \RR
+\]
+are the coordinate functions.
+
+Thus the Euclidean coordinate chart is
+\[
+  (V,\psi).
+\]
+\end{example}
+
+The transition map from polar coordinates to Euclidean coordinates is
+\[
+  \psi\circ \varphi^{-1}:\RR_+\times (0,2\pi)
+  \to
+  \RR^2\setminus \left(\RR_{\ge 0}\times \{0\}\right).
+\]
+Explicitly,
+\[
+  (\psi\circ \varphi^{-1})(\widehat r,\widehat\theta)
+  =
+  \bigl(\widehat r\cos \widehat\theta,
+  \widehat r\sin \widehat\theta\bigr).
+\]
+
+Since the component functions
+\[
+  (\widehat r,\widehat\theta)
+  \mapsto
+  \widehat r\cos \widehat\theta
+  \quad\text{and}\quad
+  (\widehat r,\widehat\theta)
+  \mapsto
+  \widehat r\sin \widehat\theta
+\]
+are smooth, the transition map
+\[
+  \psi\circ \varphi^{-1}
+\]
+is smooth.
+
+\subsection{Smooth Compatibility}
+
+\begin{definition}
+Let $(U,\varphi)$ and $(V,\psi)$ be two charts on a topological manifold $M$.
+We say that $(U,\varphi)$ and $(V,\psi)$ are \vocab{smoothly compatible} if both transition maps
+\[
+  \psi\circ \varphi^{-1} :
+  \varphi(U\cap V) \to \psi(U\cap V)
+\]
+and
+\[
+  \varphi\circ \psi^{-1} :
+  \psi(U\cap V) \to \varphi(U\cap V)
+\]
+are smooth maps between open subsets of Euclidean spaces.
+\end{definition}
+
+\begin{remark}
+At this stage, we have not yet defined what it means for a map between manifolds to be smooth.
+Therefore we do not say that a chart itself is smooth. Instead, we say that two charts are smoothly compatible.
+\end{remark}
+
+\begin{remark}
+If two charts $(U,\varphi)$ and $(V,\psi)$ are smoothly compatible, then the transition maps
+\[
+  \psi\circ \varphi^{-1}
+  \quad\text{and}\quad
+  \varphi\circ \psi^{-1}
+\]
+are diffeomorphisms between open subsets of Euclidean spaces.
+\end{remark}
+
+\subsection{Smooth Atlases and Maximal Atlases}
+
+\begin{definition}
+An \vocab{atlas} $\mathcal A$ of an $n$-dimensional topological manifold $M$ is a collection of charts
+\[
+  \mathcal A=\{(U_\alpha,\varphi_\alpha)\}_{\alpha\in I}
+\]
+such that
+\[
+  M=\bigcup_{\alpha\in I}U_\alpha.
+\]
+\end{definition}
+
+\begin{definition}
+An atlas $\mathcal A$ is called a \vocab{smooth atlas} if all charts in $\mathcal A$ are pairwise smoothly compatible.
+\end{definition}
+
+\begin{definition}
+A smooth atlas $\mathcal A$ is called a \vocab{maximal smooth atlas} if there is no smooth atlas $\mathcal A'$ such that
+\[
+  \mathcal A \subsetneq \mathcal A'.
+\]
+Equivalently, $\mathcal A$ is maximal if every chart smoothly compatible with all charts in $\mathcal A$ is already contained in $\mathcal A$.
+\end{definition}
+
+\begin{theorem}
+Every smooth atlas $\mathcal A$ of $M$ is contained in a unique maximal smooth atlas.
+\end{theorem}
+
+\begin{proof}
+We first prove existence.
+
+Define
+\[
+  \overline{\mathcal A}
+  :=
+  \left\{
+    (U,\varphi)
+    \ \middle|\
+    \begin{array}{l}
+      (U,\varphi) \text{ is a chart of } M,\\
+      (U,\varphi) \text{ is smoothly compatible with every chart in } \mathcal A
+    \end{array}
+  \right\}.
+\]
+Clearly,
+\[
+  \mathcal A\subset \overline{\mathcal A}.
+\]
+
+\begin{claim*}
+$\overline{\mathcal A}$ is a smooth atlas.
+\end{claim*}
+
+\begin{proof}
+Since $\mathcal A\subset \overline{\mathcal A}$ and $\mathcal A$ covers $M$, the collection $\overline{\mathcal A}$ also covers $M$.
+
+It remains to prove that any two charts in $\overline{\mathcal A}$ are smoothly compatible.
+
+Let
+\[
+  (U_1,\varphi_1),(U_2,\varphi_2)\in \overline{\mathcal A}.
+\]
+If
+\[
+  U_1\cap U_2=\varnothing,
+\]
+then the transition maps have empty domain, so the two charts are smoothly compatible vacuously.
+
+Now suppose
+\[
+  U_1\cap U_2\neq \varnothing.
+\]
+For each point
+\[
+  p\in U_1\cap U_2,
+\]
+since $\mathcal A$ is an atlas, there exists a chart
+\[
+  (V,\psi)\in \mathcal A
+\]
+such that
+\[
+  p\in V.
+\]
+By definition of $\overline{\mathcal A}$, both $(U_1,\varphi_1)$ and $(U_2,\varphi_2)$ are smoothly compatible with $(V,\psi)$.
+
+Therefore the transition maps
+\[
+  \psi\circ \varphi_1^{-1}
+  \quad\text{and}\quad
+  \varphi_2\circ \psi^{-1}
+\]
+are smooth on their domains. On the open set
+\[
+  \varphi_1(U_1\cap U_2\cap V),
+\]
+we have
+\[
+  \varphi_2\circ \varphi_1^{-1}
+  =
+  \left(\varphi_2\circ \psi^{-1}\right)
+  \circ
+  \left(\psi\circ \varphi_1^{-1}\right).
+\]
+Hence $\varphi_2\circ \varphi_1^{-1}$ is smooth near $\varphi_1(p)$.
+
+Since this holds for every $p\in U_1\cap U_2$, the transition map
+\[
+  \varphi_2\circ \varphi_1^{-1}:
+  \varphi_1(U_1\cap U_2)\to \varphi_2(U_1\cap U_2)
+\]
+is smooth.
+
+Similarly,
+\[
+  \varphi_1\circ \varphi_2^{-1}
+\]
+is smooth. Therefore $(U_1,\varphi_1)$ and $(U_2,\varphi_2)$ are smoothly compatible.
+
+Thus $\overline{\mathcal A}$ is a smooth atlas.
+\end{proof}
+
+% preamble:
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  >=Stealth,
+  every node/.style={font=\small},
+  map/.style={->, thick},
+  smoothmap/.style={->, thick, red!70!black},
+  outline/.style={thick},
+  coordbox/.style={
+    draw,
+    thick,
+    rounded corners=2pt,
+    minimum width=4.2cm,
+    minimum height=2.8cm
+  }
+]
+
+% =====================================================
+% Top: manifold M
+% =====================================================
+
+\node at (0,8.8) {$M$};
+
+% M
+\draw[outline]
+  (0,7.5) ellipse (5.5 and 1.35);
+
+% -----------------------------------------------------
+% Exact shading of U_1 \cap U_2
+% -----------------------------------------------------
+\begin{scope}
+  \clip (-1.4,7.5) ellipse (2.8 and 0.95); % U_1
+  \clip ( 1.4,7.5) ellipse (2.8 and 0.95); % U_2
+  \fill[orange!35, opacity=0.9] (-6.2,6.0) rectangle (6.2,9.0);
+\end{scope}
+
+% -----------------------------------------------------
+% Exact shading of U_1 \cap U_2 \cap V
+% -----------------------------------------------------
+\begin{scope}
+  \clip (-1.4,7.5) ellipse (2.8 and 0.95); % U_1
+  \clip ( 1.4,7.5) ellipse (2.8 and 0.95); % U_2
+  \clip ( 0.0,7.25) ellipse (1.35 and 0.60); % V
+  \fill[red!55, opacity=0.75] (-6.2,6.0) rectangle (6.2,9.0);
+\end{scope}
+
+% outlines
+\draw[outline, blue!70!black]
+  (-1.4,7.5) ellipse (2.8 and 0.95);
+\node[blue!70!black] at (-3.25,8.2) {$U_1$};
+
+\draw[outline, red!70!black]
+  (1.4,7.5) ellipse (2.8 and 0.95);
+\node[red!70!black] at (3.25,8.2) {$U_2$};
+
+\draw[outline, green!50!black]
+  (0.0,7.25) ellipse (1.35 and 0.60);
+\node[green!50!black] at (-1.35,6.45) {$V$};
+
+\node at (0,8.0) {$U_1\cap U_2$};
+\node[red!70!black] at (2.5,6.85) {$U_1\cap U_2\cap V$};
+
+% point p
+\fill (0,7.25) circle (1.8pt);
+\node[above] at (0,7.30) {$p$};
+
+% =====================================================
+% Bottom: coordinate boxes
+% =====================================================
+
+% Left box
+\node[coordbox] (L) at (-4.8,3.3) {};
+\node at (-4.8,4.9) {$\RR^n$};
+\node at (-4.8,4.4) {$\varphi_1(U_1)$};
+
+\draw[outline] (-4.8,3.35) ellipse (1.40 and 0.56);
+\begin{scope}
+  \clip (-4.8,3.35) ellipse (1.40 and 0.56);
+  \fill[orange!35, opacity=0.9] (-4.55,3.40) ellipse (0.82 and 0.30);
+  \fill[red!55, opacity=0.75] (-4.95,3.18) ellipse (0.58 and 0.18);
+\end{scope}
+\node at (-4.45,3.90) {$\varphi_1(U_1\cap U_2)$};
+\node[red!70!black] at (-4.8,2.25) {$\varphi_1(U_1\cap U_2\cap V)$};
+
+\fill (-4.95,3.18) circle (1.4pt);
+\node[below] at (-4.95,3.08) {$\varphi_1(p)$};
+
+% Middle box
+\node[coordbox] (C) at (0,3.3) {};
+\node at (0,4.9) {$\RR^n$};
+\node at (0,4.4) {$\psi(V)$};
+
+\draw[outline] (0,3.35) ellipse (1.30 and 0.52);
+\begin{scope}
+  \clip (0,3.35) ellipse (1.30 and 0.52);
+  \fill[red!55, opacity=0.75] (0,3.18) ellipse (0.62 and 0.19);
+\end{scope}
+\node[red!70!black] at (0,2.25) {$\psi(U_1\cap U_2\cap V)$};
+
+\fill (0,3.18) circle (1.4pt);
+\node[below] at (0,3.08) {$\psi(p)$};
+
+% Right box
+\node[coordbox] (R) at (4.8,3.3) {};
+\node at (4.8,4.9) {$\RR^n$};
+\node at (4.8,4.4) {$\varphi_2(U_2)$};
+
+\draw[outline] (4.8,3.35) ellipse (1.40 and 0.56);
+\begin{scope}
+  \clip (4.8,3.35) ellipse (1.40 and 0.56);
+  \fill[orange!35, opacity=0.9] (4.55,3.40) ellipse (0.82 and 0.30);
+  \fill[red!55, opacity=0.75] (4.45,3.18) ellipse (0.58 and 0.18);
+\end{scope}
+\node at (4.50,3.90) {$\varphi_2(U_1\cap U_2)$};
+\node[red!70!black] at (4.8,2.25) {$\varphi_2(U_1\cap U_2\cap V)$};
+
+\fill (4.45,3.18) circle (1.4pt);
+\node[below] at (4.45,3.08) {$\varphi_2(p)$};
+
+% =====================================================
+% Chart arrows from M
+% =====================================================
+
+\draw[map]
+  (-2.9,6.6) to[out=-120,in=90] (-5.4,4.65);
+\node at (-5.55,5.85) {$\varphi_1$};
+
+\draw[map, green!50!black]
+  (0,6.6) -- (0,4.65);
+\node[green!50!black] at (0.35,5.55) {$\psi$};
+
+\draw[map]
+  (2.9,6.6) to[out=-60,in=90] (5.4,4.65);
+\node at (5.55,5.85) {$\varphi_2$};
+
+% =====================================================
+% Transition maps
+% =====================================================
+
+\draw[smoothmap] (-2.55,3.35) -- (-2.05,3.35);
+\node[red!70!black, above] at (-2.30,3.58) {$\psi\circ\varphi_1^{-1}$};
+\node[red!70!black, below] at (-2.30,3.10) {smooth};
+
+\draw[smoothmap] (2.05,3.35) -- (2.55,3.35);
+\node[red!70!black, above] at (2.30,3.58) {$\varphi_2\circ\psi^{-1}$};
+\node[red!70!black, below] at (2.30,3.10) {smooth};
+
+% =====================================================
+% Bottom formula
+% =====================================================
+
+\node[align=center] at (0,0.85)
+{On $\varphi_1(U_1\cap U_2\cap V)$,\\[0.4em]
+$\displaystyle
+  \varphi_2\circ\varphi_1^{-1}
+  =
+  (\varphi_2\circ\psi^{-1})\circ(\psi\circ\varphi_1^{-1})$\\[0.4em]
+Hence $\varphi_2\circ\varphi_1^{-1}$ is smooth near $\varphi_1(p)$.
+};
+
+\end{tikzpicture}
+\caption{The local factorization used in the proof of the first claim of Theorem 1.13.}
+\end{figure}
+
+Now we prove maximality.
+
+\begin{claim*}
+If $\mathcal A'$ is a smooth atlas with $\mathcal A\subset \mathcal A'$, then $\mathcal A'\subset \overline{\mathcal A}$.
+\end{claim*}
+
+\begin{proof}
+Let
+\[
+  (U',\varphi')\in \mathcal A'.
+\]
+Since $\mathcal A'$ is a smooth atlas, $(U',\varphi')$ is smoothly compatible with every chart in $\mathcal A'$.
+Since
+\[
+  \mathcal A\subset \mathcal A',
+\]
+it follows that $(U',\varphi')$ is smoothly compatible with every chart in $\mathcal A$.
+
+Therefore, by definition of $\overline{\mathcal A}$,
+\[
+  (U',\varphi')\in \overline{\mathcal A}.
+\]
+Hence
+\[
+  \mathcal A'\subset \overline{\mathcal A}.
+\]
+\end{proof}
+
+If there were a smooth atlas $\mathcal B$ such that
+\[
+  \overline{\mathcal A}\subsetneq \mathcal B,
+\]
+then $\mathcal A\subset \mathcal B$, so by the previous claim we would have
+\[
+  \mathcal B\subset \overline{\mathcal A},
+\]
+a contradiction. Hence $\overline{\mathcal A}$ is maximal.
+
+It remains to prove uniqueness.
+
+Suppose $\mathcal B$ is another maximal smooth atlas containing $\mathcal A$.
+Since $\mathcal A\subset \mathcal B$, the previous claim gives
+\[
+  \mathcal B\subset \overline{\mathcal A}.
+\]
+But $\mathcal B$ is maximal and $\overline{\mathcal A}$ is a smooth atlas. Hence
+\[
+  \mathcal B=\overline{\mathcal A}.
+\]
+Therefore the maximal smooth atlas containing $\mathcal A$ is unique.
+\end{proof}
+
+\begin{remark}
+Suppose $\mathcal A_1$ and $\mathcal A_2$ are two smooth atlases on $M$ such that every chart in $\mathcal A_1$ is smoothly compatible with every chart in $\mathcal A_2$.
+Then
+\[
+  \overline{\mathcal A_1}
+  =
+  \overline{\mathcal A_2}.
+\]
+Indeed, under this assumption,
+\[
+  \mathcal A_1\cup \mathcal A_2
+\]
+is a smooth atlas. Since it contains both $\mathcal A_1$ and $\mathcal A_2$, the uniqueness of maximal smooth atlases gives
+\[
+  \overline{\mathcal A_1}
+  =
+  \overline{\mathcal A_1\cup \mathcal A_2}
+  =
+  \overline{\mathcal A_2}.
+\]
+\end{remark}

@@ -1,0 +1,883 @@
+% preamble:
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta}
+\section{2026-05-16}
+
+\subsection{Boundary Points and Manifold Boundary}
+
+\begin{center}
+\begin{tikzpicture}[
+  >=Stealth,
+  every node/.style={font=\small},
+  map/.style={->, thick},
+  tmap/.style={->, thick, orange!80!black},
+  outline/.style={thick},
+  scale=1
+]
+
+% =====================================================
+% Top: manifold with boundary M
+% =====================================================
+
+\node[anchor=west] at (-7.2,7.3)
+  {\underline{Recap}: manifolds with boundary, transition map};
+
+% M as a half-ellipse
+\draw[outline]
+  (-4.2,4.2) -- (4.2,4.2)
+  arc[start angle=0,end angle=180,x radius=4.2,y radius=1.7]
+  -- cycle;
+
+\node at (0,6.05) {$M$};
+\node at (3.15,4.00) {$\partial M$};
+
+% exact shading of U \cap V
+\begin{scope}
+  % U half-ellipse
+  \clip
+    (-2.15,4.2) -- (1.05,4.2)
+    arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+    -- cycle;
+  % V half-ellipse
+  \clip
+    (-1.05,4.2) -- (2.15,4.2)
+    arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+    -- cycle;
+  \fill[orange!45, opacity=0.85] (-3,4.0) rectangle (3,5.8);
+\end{scope}
+
+% exact shading of U \cap V \cap \partial M
+% Since this is lower-dimensional, we draw it as a thick red segment on the boundary.
+\begin{scope}
+  \clip
+    (-2.15,4.2) -- (1.05,4.2)
+    arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+    -- cycle;
+  \clip
+    (-1.05,4.2) -- (2.15,4.2)
+    arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+    -- cycle;
+  \draw[red!65, line width=5pt, opacity=0.75] (-4.2,4.2) -- (4.2,4.2);
+\end{scope}
+
+% Draw U and V after shading
+\draw[blue!70!black, thick]
+  (-2.15,4.2) -- (1.05,4.2)
+  arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+  -- cycle;
+
+\draw[red!70!black, thick]
+  (-1.05,4.2) -- (2.15,4.2)
+  arc[start angle=0,end angle=180,x radius=1.6,y radius=1.25]
+  -- cycle;
+
+\node[blue!70!black] at (-1.55,5.25) {$U$};
+\node[red!70!black] at (1.55,5.25) {$V$};
+
+\node[orange!80!black] at (0,5.15) {$U\cap V$};
+\node[red!70!black] at (1.35,3.78) {$U\cap V\cap\partial M$};
+
+% point p on the boundary intersection
+\fill[green!60!black] (0,4.2) circle (1.8pt);
+\node[green!50!black, below] at (0,4.12) {$p$};
+
+% =====================================================
+% Left: phi-chart in H^n
+% =====================================================
+
+% H^n box
+\draw[blue!70!black, thick] (-7.0,0.0) rectangle (-2.6,2.55);
+\draw[blue!70!black, thick] (-7.0,0.0) -- (-2.6,0.0);
+\node[blue!70!black] at (-6.65,2.32) {$\mathbb H^n$};
+\node[blue!70!black] at (-3.10,-0.28) {$\partial\mathbb H^n$};
+
+% phi(U): half-ellipse meeting boundary
+\draw[blue!70!black, thick]
+  (-6.15,0.0) -- (-3.45,0.0)
+  arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+  -- cycle;
+
+\node[blue!70!black] at (-4.80,1.25) {$\varphi(U)$};
+
+% phi(U cap V): smaller half-ellipse meeting boundary
+\draw[orange!80!black, thick]
+  (-5.05,0.0) -- (-3.75,0.0)
+  arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+  -- cycle;
+
+% strict shading of phi(U cap V)
+\begin{scope}
+  \clip
+    (-6.15,0.0) -- (-3.45,0.0)
+    arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+    -- cycle;
+  \clip
+    (-5.05,0.0) -- (-3.75,0.0)
+    arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+    -- cycle;
+  \fill[orange!45, opacity=0.85] (-6.2,-0.1) rectangle (-3.4,1.1);
+\end{scope}
+
+% boundary part in phi(U cap V)
+\begin{scope}
+  \clip
+    (-5.05,0.0) -- (-3.75,0.0)
+    arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+    -- cycle;
+  \draw[red!65, line width=4pt, opacity=0.75] (-6,0) -- (-3,0);
+\end{scope}
+
+% redraw outlines
+\draw[blue!70!black, thick]
+  (-6.15,0.0) -- (-3.45,0.0)
+  arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+  -- cycle;
+
+\draw[orange!80!black, thick]
+  (-5.05,0.0) -- (-3.75,0.0)
+  arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+  -- cycle;
+
+\fill[green!60!black] (-4.40,0.0) circle (1.6pt);
+\node[green!50!black, below] at (-4.40,-0.05) {$\varphi(p)$};
+
+\node[orange!80!black] at (-4.40,-0.58) {$\varphi(U\cap V)$};
+
+% =====================================================
+% Right: psi-chart in H^n
+% =====================================================
+
+% H^n box
+\draw[red!70!black, thick] (2.6,0.0) rectangle (7.0,2.55);
+\draw[red!70!black, thick] (2.6,0.0) -- (7.0,0.0);
+\node[red!70!black] at (6.65,2.32) {$\mathbb H^n$};
+\node[red!70!black] at (6.20,-0.28) {$\partial\mathbb H^n$};
+
+% psi(V): half-ellipse meeting boundary
+\draw[red!70!black, thick]
+  (3.45,0.0) -- (6.15,0.0)
+  arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+  -- cycle;
+
+\node[red!70!black] at (4.80,1.25) {$\psi(V)$};
+
+% psi(U cap V): smaller half-ellipse meeting boundary
+\draw[orange!80!black, thick]
+  (3.75,0.0) -- (5.05,0.0)
+  arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+  -- cycle;
+
+% strict shading of psi(U cap V)
+\begin{scope}
+  \clip
+    (3.45,0.0) -- (6.15,0.0)
+    arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+    -- cycle;
+  \clip
+    (3.75,0.0) -- (5.05,0.0)
+    arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+    -- cycle;
+  \fill[orange!45, opacity=0.85] (3.4,-0.1) rectangle (6.2,1.1);
+\end{scope}
+
+% boundary part in psi(U cap V)
+\begin{scope}
+  \clip
+    (3.75,0.0) -- (5.05,0.0)
+    arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+    -- cycle;
+  \draw[red!65, line width=4pt, opacity=0.75] (3,0) -- (6,0);
+\end{scope}
+
+% redraw outlines
+\draw[red!70!black, thick]
+  (3.45,0.0) -- (6.15,0.0)
+  arc[start angle=0,end angle=180,x radius=1.35,y radius=0.85]
+  -- cycle;
+
+\draw[orange!80!black, thick]
+  (3.75,0.0) -- (5.05,0.0)
+  arc[start angle=0,end angle=180,x radius=0.65,y radius=0.50]
+  -- cycle;
+
+\fill[green!60!black] (4.40,0.0) circle (1.6pt);
+\node[green!50!black, below] at (4.40,-0.05) {$\psi(p)$};
+
+\node[orange!80!black] at (4.40,-0.58) {$\psi(U\cap V)$};
+
+% =====================================================
+% Chart maps and transition map
+% =====================================================
+
+\draw[map, blue!70!black]
+  (-1.25,4.35) to[out=220,in=90] (-4.85,2.55);
+\node[blue!70!black] at (-4.70,3.30) {$\varphi$};
+
+\draw[map, red!70!black]
+  (1.25,4.35) to[out=320,in=90] (4.85,2.55);
+\node[red!70!black] at (4.70,3.30) {$\psi$};
+
+\draw[tmap] (-3.75,0.72) -- (3.75,0.72);
+\node[orange!80!black, above] at (0,0.82) {$\psi\circ\varphi^{-1}$};
+
+\end{tikzpicture}
+\end{center}
+
+
+\begin{theorem}[Boundary points are well-defined]
+Let $M$ be a smooth manifold with boundary, and let $p\in M$. Suppose
+\[
+  (U,\varphi),\qquad (V,\psi)
+\]
+are two smooth charts containing $p$. Then
+\[
+  \varphi(p)\in \partial\mathbb H^n
+  \iff
+  \psi(p)\in \partial\mathbb H^n.
+\]
+Equivalently,
+\[
+  \varphi(p)\in \operatorname{Int}\mathbb H^n
+  \iff
+  \psi(p)\in \operatorname{Int}\mathbb H^n.
+\]
+\end{theorem}
+
+\begin{proof}
+Consider the transition map
+\[
+  \psi\circ\varphi^{-1}:
+  \varphi(U\cap V)\to \psi(U\cap V).
+\]
+Since $(U,\varphi)$ and $(V,\psi)$ are smoothly compatible charts, this is a smooth transition map between open subsets of $\mathbb H^n$.
+
+Moreover, it restricts to a smooth map
+\[
+  \psi\circ\varphi^{-1}:
+  \partial\mathbb H^n\cap \varphi(U\cap V)
+  \to
+  \partial\mathbb H^n\cap \psi(U\cap V).
+\]
+Thus the transition map sends boundary points of $\mathbb H^n$ to boundary points of $\mathbb H^n$.
+
+Therefore,
+\[
+  \varphi(p)\in \partial\mathbb H^n
+  \iff
+  \psi(p)\in \partial\mathbb H^n.
+\]
+Similarly,
+\[
+  \varphi(p)\in \operatorname{Int}\mathbb H^n
+  \iff
+  \psi(p)\in \operatorname{Int}\mathbb H^n.
+\]
+Hence whether $p$ is a boundary point is independent of the chart.
+\end{proof}
+
+\begin{definition}
+Let $M$ be a smooth manifold with boundary. The \vocab{interior} of $M$ is
+\[
+  \operatorname{Int} M
+  :=
+  \{p\in M\mid p \text{ is an interior point}\}.
+\]
+The \vocab{boundary} of $M$ is
+\[
+  \partial M
+  :=
+  \{p\in M\mid p \text{ is a boundary point}\}.
+\]
+\end{definition}
+
+Thus
+\[
+  M=\operatorname{Int}M\sqcup \partial M.
+\]
+
+\begin{remark}
+The interior of $M$ is a smooth $n$-manifold without boundary:
+\[
+  \operatorname{Int}M
+  \quad
+  \text{is a smooth $n$-manifold without boundary.}
+\]
+The boundary of $M$ is a smooth $(n-1)$-manifold without boundary:
+\[
+  \partial M
+  \quad
+  \text{is a smooth $(n-1)$-manifold without boundary.}
+\]
+\end{remark}
+
+\begin{remark}
+The topological interior and the manifold interior need not be the same notion.
+Similarly, the topological boundary and the manifold boundary need not agree.
+\end{remark}
+
+\begin{example}
+Let
+\[
+  M=\{x\in\RR^n\mid x^n>0\}\subset \RR^n.
+\]
+Then $M$ has no manifold boundary:
+\[
+  \partial M=\varnothing.
+\]
+However, as a subset of $\RR^n$, it has topological boundary
+\[
+  \partial_{\mathrm{top}}M=\RR^{n-1}\times\{0\}.
+\]
+\end{example}
+
+\begin{example}
+If $M$ is an $n$-manifold with boundary, then
+\[
+  \partial_{\mathrm{top}}M=\varnothing
+\]
+when $M$ is regarded as a topological space in itself. Indeed,
+\[
+  \operatorname{Int}_{\mathrm{top}}M=M.
+\]
+But the manifold boundary $\partial M$ may be nonempty.
+\end{example}
+
+\begin{example}
+Let
+\[
+  M=S^n\subset \RR^{n+1}.
+\]
+Then
+\[
+  \partial_{\mathrm{mf}}M=\varnothing,
+\]
+and
+\[
+  \partial_{\mathrm{top}}M=S^n
+\]
+if $S^n$ is viewed as a subset of $\RR^{n+1}$.
+\end{example}
+
+\begin{example}
+Let
+\[
+  M=\mathbb H^n\cap B(0,1).
+\]
+Then $M$ is a smooth manifold with boundary. Its manifold boundary is
+\[
+  \partial M
+  =
+  \{x\in B(0,1)\mid x^n=0\}.
+\]
+Geometrically, this is the flat part of the boundary.
+\end{example}
+
+
+\subsection{Smoothness on Half-Spaces}
+
+\begin{remark}
+The notion of smoothness for maps defined on subsets of $\mathbb H^n$ is the following.
+
+All partial derivatives should exist and be continuous up to the boundary.
+\end{remark}
+
+\begin{definition}
+Let
+\[
+  A\subset \mathbb H^n
+\]
+be an arbitrary subset, not necessarily open. A map
+\[
+  f:A\to \RR^m
+\]
+is called \vocab{smooth} if it can be extended to a smooth map
+\[
+  \widetilde f:V\to \RR^m
+\]
+where
+\[
+  A\subset V\subset \RR^n
+\]
+and $V$ is open, such that
+\[
+  \widetilde f|_A=f.
+\]
+\end{definition}
+
+\begin{center}
+\begin{tikzpicture}[
+  >=Stealth,
+  every node/.style={font=\small},
+  outline/.style={thick},
+  map/.style={->, thick},
+  scale=1
+]
+
+% Ambient open set V
+\draw[blue!60, thick]
+  (0,0)
+  .. controls (-1.4,0.9) and (-1.1,2.4) .. (0.4,2.7)
+  .. controls (1.8,3.0) and (3.0,2.4) .. (3.3,1.2)
+  .. controls (3.6,0.0) and (2.6,-0.8) .. (1.2,-0.7)
+  .. controls (0.4,-0.6) and (0.5,-0.1) .. (0,0);
+
+\node[blue!70!black] at (2.6,2.35) {$V$};
+
+% Subset A
+\draw[outline]
+  (0.6,0.65) -- (1.1,1.15) -- (1.05,0.55)
+  -- (1.65,1.15) -- (1.70,0.55)
+  -- (2.35,1.20) -- (2.45,0.82);
+
+\node at (1.65,0.30) {$A$};
+
+% Arrow to R^m
+\draw[map] (3.8,1.0) -- (6.0,1.0);
+\node[above] at (4.9,1.0) {$f$};
+
+\node at (6.6,1.0) {$\RR^m$};
+
+% Extension label
+\draw[blue!60, map] (2.1,-0.35) to[out=-20,in=210] (6.0,0.55);
+\node[blue!70!black] at (4.2,0.05) {$\widetilde f$};
+
+\end{tikzpicture}
+\end{center}
+
+\begin{theorem}[Seeley's Extension Theorem]
+Let
+\[
+  U\subset \mathbb H^n
+\]
+be open in the relative topology, and let
+\[
+  f:U\to \RR^m
+\]
+be a map. Suppose that, for every multi-index $I$, the partial derivative
+\[
+  \partial^I f
+\]
+exists on $U\cap \operatorname{Int}\mathbb H^n$ and extends continuously to all of $U$.
+Then there exist an open set
+\[
+  \widetilde U\subset \RR^n,
+  \qquad
+  U\subset \widetilde U,
+\]
+and a smooth map
+\[
+  \widetilde f:\widetilde U\to \RR^m
+\]
+such that
+\[
+  \widetilde f|_U=f.
+\]
+
+In other words, a map on an open subset of $\mathbb H^n$ is smooth up to the boundary exactly when it can be extended smoothly across the boundary hyperplane $\partial\mathbb H^n$.
+\end{theorem}
+
+\begin{definition}[Partial derivatives and multi-index notation]
+Let
+\[
+  W\subset \RR^n
+\]
+be open, and let
+\[
+  f:W\to \RR^m.
+\]
+For each coordinate direction $e_i$, the \vocab{partial derivative} of $f$ in the $x^i$-direction is defined by
+\[
+  \frac{\partial f}{\partial x^i}(x)
+  :=
+  \lim_{h\to 0}
+  \frac{f(x+h e_i)-f(x)}{h},
+\]
+provided the limit exists.
+
+A \vocab{multi-index} is an $n$-tuple
+\[
+  I=(i_1,\dots,i_n),
+  \qquad
+  i_1,\dots,i_n\in \ZZ_{\ge 0}.
+\]
+Its order is
+\[
+  |I|=i_1+\cdots+i_n.
+\]
+We write
+\[
+  \partial^I f
+  :=
+  \frac{\partial^{|I|} f}
+  {\partial (x^1)^{i_1}\cdots \partial (x^n)^{i_n}}.
+\]
+For example, if $n=3$ and $I=(2,0,1)$, then
+\[
+  \partial^I f
+  =
+  \frac{\partial^3 f}{\partial (x^1)^2\partial x^3}.
+\]
+\end{definition}
+
+\begin{remark}
+The condition that $\partial^I f$ extends continuously to $U$ means the following. First compute $\partial^I f$ on the interior part
+\[
+  U\cap \operatorname{Int}\mathbb H^n.
+\]
+Then, for every boundary point $p\in U\cap \partial\mathbb H^n$, the values of $\partial^I f(x)$ must have a limit as $x$ approaches $p$ from inside $\mathbb H^n$. This limiting value is declared to be the value of the continuous extension at $p$.
+\end{remark}
+
+\subsection{Smooth Maps Between Manifolds}
+
+\begin{definition}
+Let $M$ be a smooth manifold, possibly with boundary, and let $N$ be a smooth manifold.
+A map
+\[
+  f:M\to N
+\]
+is called \vocab{smooth} if for every point $p\in M$, there exist smooth charts
+\[
+  (U,\varphi)
+  \quad\text{of }M,
+  \qquad
+  (V,\psi)
+  \quad\text{of }N,
+\]
+such that
+\[
+  p\in U,
+  \qquad
+  f(U)\subset V,
+\]
+and the coordinate representation
+\[
+  \widehat f
+  :=
+  \psi\circ f\circ\varphi^{-1}
+  :
+  \varphi(U)\to \psi(V)\subset \RR^m
+\]
+is smooth.
+\end{definition}
+
+The map
+\[
+  \widehat f
+  =
+  \psi\circ f\circ\varphi^{-1}
+\]
+is called the \vocab{coordinate representation} of $f$ with respect to the charts
+\[
+  (U,\varphi)
+  \quad\text{and}\quad
+  (V,\psi).
+\]
+
+\begin{center}
+\begin{tikzpicture}[
+  >=Stealth,
+  every node/.style={font=\small},
+  map/.style={->, thick},
+  chartmap/.style={->, thick, blue!70!black},
+  coordmap/.style={->, thick, blue!70!black},
+  outline/.style={thick},
+  bluebox/.style={draw=blue!70!black, thick},
+  targetbox/.style={draw=black, thick},
+  scale=1
+]
+
+% Source manifold M
+\draw[outline] (-4.8,3.2) ellipse (2.4 and 1.25);
+\node at (-6.25,3.85) {$M$};
+
+% U in M
+\draw[blue!70!black, thick] (-3.9,3.25) ellipse (0.85 and 0.55);
+\node[blue!70!black] at (-3.9,3.42) {$U$};
+
+\fill (-3.9,3.15) circle (1.4pt);
+\node[below] at (-3.9,3.08) {$p$};
+
+% Target coordinate image in R^m
+\draw[targetbox] (1.8,2.35) rectangle (4.55,4.20);
+\node at (3.15,3.95) {$\RR^m$};
+
+\draw[red!70!black, thick] (3.15,3.15) ellipse (0.85 and 0.45);
+\node[red!70!black] at (3.15,3.32) {$\psi(V)$};
+
+\fill (3.15,3.05) circle (1.4pt);
+\node[below] at (3.15,2.98) {$\psi(f(p))$};
+
+% f arrow
+\draw[map] (-2.25,3.25) -- (1.55,3.25);
+\node[above] at (-0.35,3.25) {$f$};
+
+% Coordinate image phi(U)
+\draw[bluebox] (-2.35,0.05) rectangle (-0.35,1.65);
+\node[blue!70!black] at (-0.10,1.35) {$\RR^n$};
+
+\draw[blue!70!black, thick] (-1.35,0.80) ellipse (0.65 and 0.38);
+\node[blue!70!black] at (-1.35,0.96) {$\varphi(U)$};
+
+\fill (-1.35,0.72) circle (1.4pt);
+\node[below] at (-1.35,0.65) {$\varphi(p)$};
+
+% phi arrow
+\draw[chartmap] (-3.55,2.78) -- (-1.70,1.78);
+\node[blue!70!black] at (-2.75,2.15) {$\varphi$};
+
+% coordinate representation arrow
+\draw[coordmap] (-0.35,1.10) to[out=20,in=225] (2.35,2.35);
+
+\node[blue!70!black] at (1.05,1.85)
+  {$\widehat f=\psi\circ f\circ\varphi^{-1}$};
+
+\node[blue!70!black] at (2.25,1.58)
+  {coordinate representation};
+
+\end{tikzpicture}
+\end{center}
+
+Thus
+\[
+  C^\infty(M,N)
+  :=
+  \{f:M\to N\mid f \text{ is smooth}\}.
+\]
+
+\begin{lemma}
+If
+\[
+  f:M\to N
+\]
+is smooth, then for any smooth charts
+\[
+  (U,\varphi)
+  \quad\text{of }M,
+  \qquad
+  (V,\psi)
+  \quad\text{of }N,
+\]
+the coordinate representation
+\[
+  \psi\circ f\circ\varphi^{-1}
+  :
+  \varphi\bigl(U\cap f^{-1}(V)\bigr)
+  \to
+  \psi(V)
+\]
+is smooth.
+\end{lemma}
+
+\begin{proof}
+Let
+\[
+  p\in U\cap f^{-1}(V).
+\]
+Since $f$ is smooth, there exist smooth charts
+\[
+  (\widetilde U,\widetilde\varphi)
+  \quad\text{of }M,
+  \qquad
+  (\widetilde V,\widetilde\psi)
+  \quad\text{of }N,
+\]
+such that
+\[
+  p\in \widetilde U,
+  \qquad
+  F(\widetilde U)\subset \widetilde V,
+\]
+and
+\[
+  \widetilde\psi\circ F\circ \widetilde\varphi^{-1}
+  :
+  \widetilde\varphi(\widetilde U)
+  \to
+  \widetilde\psi(\widetilde V)
+\]
+is smooth.
+
+On the domain where all expressions are defined, we have
+\[
+  \psi\circ F\circ \varphi^{-1}
+  =
+  \left(\psi\circ \widetilde\psi^{-1}\right)
+  \circ
+  \left(\widetilde\psi\circ F\circ \widetilde\varphi^{-1}\right)
+  \circ
+  \left(\widetilde\varphi\circ \varphi^{-1}\right).
+\]
+Here
+\[
+  \widetilde\varphi\circ \varphi^{-1}
+\]
+and
+\[
+  \psi\circ \widetilde\psi^{-1}
+\]
+are smooth transition maps, while
+\[
+  \widetilde\psi\circ F\circ \widetilde\varphi^{-1}
+\]
+is smooth by assumption. Therefore
+\[
+  \psi\circ F\circ \varphi^{-1}
+\]
+is smooth near $\varphi(p)$.
+
+Since $p$ was arbitrary, the coordinate representation
+\[
+  \psi\circ F\circ \varphi^{-1}
+  :
+  \varphi\bigl(U\cap F^{-1}(V)\bigr)
+  \to
+  \psi(V)
+\]
+is smooth.
+\end{proof}
+
+\subsection{Basic properties and definitions}
+
+\begin{example}
+Let
+\[
+  f:M\to \RR
+\]
+be a smooth function.
+
+A smooth function can describe, for example, a ``temperature distribution'' on $M$,
+or a ``smooth curve'' if
+\[
+  f:[0,1]\to M.
+\]
+\end{example}
+
+\begin{remark}
+Read the basic properties and definitions of smooth maps.
+\end{remark}
+
+\subsection{Partitions of Unity}
+
+\begin{example}
+Given
+\[
+  f_-,f_+\in C^\infty(\RR),
+\]
+we want to find
+\[
+  f\in C^\infty(\RR)
+\]
+such that
+\[
+  f=f_-
+  \quad\text{on }(-\infty,-1),
+\]
+and
+\[
+  f=f_+
+  \quad\text{on }(1,\infty).
+\]
+Choose a cutoff function
+\[
+  \psi_-\in C^\infty(\RR)
+\]
+such that
+\[
+  \psi_-=1
+  \quad\text{on }(-\infty,-1],
+\]
+and
+\[
+  \operatorname{supp}\psi_-\subset (-\infty,1).
+\]
+Set
+\[
+  \psi_+:=1-\psi_-.
+\]
+Then define
+\[
+  f:=\psi_-f_-+\psi_+f_+.
+\]
+Informally,
+\[
+  \psi_-+\psi_+\equiv 1,
+\]
+with
+\[
+  \operatorname{supp}\psi_-\subset (-\infty,1),
+  \qquad
+  \operatorname{supp}\psi_+\subset (-1,\infty).
+\]
+This is a simple instance of a partition of unity subordinate to the cover
+\[
+  \{(-\infty,1),(-1,\infty)\}.
+\]
+\end{example}
+
+\begin{definition}
+Let
+\[
+  \mathcal X=\{X_\alpha\}_{\alpha\in A}
+\]
+be an open cover of a topological space $X$. A \vocab{partition of unity subordinate to $\mathcal X$}
+is a family of continuous functions
+\[
+  \{\psi_\alpha:X\to \RR\}_{\alpha\in A}
+\]
+such that:
+\begin{enumerate}
+  \item
+  \[
+    0\le \psi_\alpha\le 1
+    \qquad\text{for all }\alpha\in A.
+  \]
+
+  \item
+  \[
+    \operatorname{supp}\psi_\alpha\subset X_\alpha.
+  \]
+
+  \item The family
+  \[
+    \{\operatorname{supp}\psi_\alpha\}_{\alpha\in A}
+  \]
+  is locally finite.
+
+  \item
+  \[
+    \sum_{\alpha\in A}\psi_\alpha(x)\equiv 1
+    \qquad\text{for all }x\in X.
+  \]
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+The local finiteness condition implies that
+\[
+  \sum_{\alpha\in A}\psi_\alpha
+\]
+is locally a finite sum. Since
+\[
+  \sum_{\alpha\in A}\psi_\alpha\equiv 1,
+\]
+we also have
+\[
+  X=\bigcup_{\alpha\in A}\operatorname{supp}\psi_\alpha.
+\]
+\end{remark}
+
+\begin{theorem}[Existence of smooth partitions of unity]
+Let $M$ be a smooth manifold, possibly with boundary. For any open cover
+\[
+  \mathcal X=\{X_\alpha\}_{\alpha\in A}
+\]
+of $M$, there exists a smooth partition of unity
+\[
+  \{\psi_\alpha\}_{\alpha\in A}
+\]
+subordinate to $\mathcal X$.
+\end{theorem}
+
+\begin{remark}
+Equivalently, for any open cover of a smooth manifold, one can find smooth bump functions whose supports lie inside the elements of the cover and whose locally finite sum is identically equal to $1$.
+\end{remark}
