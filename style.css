@@ -89,6 +89,10 @@ main li,
   padding-left: 1.4rem;
 }
 
+.plain-link {
+  text-decoration: none;
+}
+
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

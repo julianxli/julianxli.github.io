@@ -1,0 +1,302 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[sexy]{evan}
+
+\title{A Geometry Problem}
+\author{Xinzhe Li}
+\date{10 June 2026}
+
+\begin{document}
+
+\section*{A Geometry Problem}
+
+\begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
+\textit{Source: We Love Geometry WeChat public account, Teacher Yao Jiabin.}
+
+\medskip
+
+Let $\triangle ABC$ be inscribed in a circle $\Gamma$.
+Let $P$ be an interior point of $\triangle ABC$.
+
+Let $E$ and $F$ be the feet of the perpendiculars from $P$ to $AC$ and $AB$,
+respectively. Let $L$ be the intersection of line $EF$ with $\Gamma$ shown in
+the figure.
+Let line $AP$ meet $\Gamma$ again at $D$.
+Finally, let $S$ be the foot of the perpendicular from $D$ to $BC$.
+
+Prove that
+\[
+  \angle PLE = \angle SLD.
+\]
+\end{mdframed}
+
+\begin{center}
+\begin{asy}
+size(13cm);
+
+pen auxpen = rgb(0.45,0.45,0.45);
+
+path localRightAngleMark(pair A, pair O, pair B, real scale=8) {
+  real s = scale/40;
+  pair u = unit(A-O);
+  pair v = unit(B-O);
+  return (O+s*u)--(O+s*(u+v))--(O+s*v);
+}
+
+real polarAngle(pair v) {
+  return degrees(atan2(v.y, v.x));
+}
+
+path localSmallAngleArc(pair A, pair O, pair B, real r) {
+  real a = polarAngle(A-O);
+  real b = polarAngle(B-O);
+  while (b-a > 180) {
+    b -= 360;
+  }
+  while (b-a < -180) {
+    b += 360;
+  }
+  return arc(O, r, a, b);
+}
+
+// ------------------------------------------------
+// Basic configuration
+// ------------------------------------------------
+pair B = (0,0);
+pair C = (6,0);
+pair A = (5.4,4.7);
+pair P = (3.55,1.65);
+
+// Feet of perpendiculars
+pair E = foot(P,A,C);
+pair F = foot(P,A,B);
+
+// Circumcircle Gamma
+circle Gamma = circumcircle(A,B,C);
+pair O = circumcenter(A,B,C);
+real R = abs(A-O);
+
+// L is the second intersection of EF with Gamma
+pair[] X = intersectionpoints(line(E,F), Gamma);
+pair L;
+if (abs(X[0]-E) > abs(X[1]-E)) {
+  L = X[0];
+} else {
+  L = X[1];
+}
+
+// D is the second intersection of AP with Gamma
+pair[] Y = intersectionpoints(line(A,P), Gamma);
+pair D;
+if (abs(Y[0]-A) > abs(Y[1]-A)) {
+  D = Y[0];
+} else {
+  D = Y[1];
+}
+
+// S is the foot from D to BC
+pair S = foot(D,B,C);
+
+// Simson line feet and auxiliary intersection
+pair G = foot(D,A,B);
+pair H = foot(D,A,C);
+pair I = extension(A,L,G,H);
+
+// ------------------------------------------------
+// Evan-style drawing
+// ------------------------------------------------
+
+// Main circle: Evan-style filled circle
+filldraw(Gamma, opacity(0.1)+lightcyan, blue);
+
+// Main triangle
+draw(A--B--C--cycle, linewidth(1.1));
+draw(A--H, gray+dashed);
+
+// Given construction lines
+draw(E--F--L, lightred);
+draw(A--D, lightred);
+
+// Perpendiculars
+draw(P--E, auxpen);
+draw(P--F, auxpen);
+draw(D--S, auxpen);
+draw(D--G, auxpen);
+draw(D--H, auxpen);
+
+// Simson line and auxiliary lines
+draw(I--H, purple);
+draw(A--I, lightred);
+draw(I--D, purple);
+
+// Lines involved in the target equality
+draw(L--P, blue);
+draw(L--S, blue);
+draw(L--D, blue);
+
+// Right angle marks
+draw(localRightAngleMark(P,E,C,8), auxpen);
+draw(localRightAngleMark(P,F,A,8), auxpen);
+draw(localRightAngleMark(D,S,C,8), auxpen);
+draw(localRightAngleMark(D,G,A,8), auxpen);
+draw(localRightAngleMark(D,H,A,8), auxpen);
+
+// Small angle marks
+draw(localSmallAngleArc(P,L,E,0.34), deepcyan);
+draw(localSmallAngleArc(S,L,D,0.46), deepgreen);
+
+// Points and labels
+dot("$A$", A, dir(A));
+dot("$B$", B, dir(225));
+dot("$C$", C, dir(315));
+dot("$D$", D, dir(270));
+dot("$E$", E, dir(0));
+dot("$F$", F, dir(135));
+dot("$G$", G, dir(135));
+dot("$H$", H, dir(0));
+dot("$I$", I, dir(45));
+dot("$L$", L, dir(180));
+dot("$P$", P, dir(330));
+dot("$S$", S, dir(90));
+
+// Circle label
+label("$\Gamma$", O + 1.08*R*dir(35), blue);
+
+\end{asy}
+\end{center}
+
+\begin{proof}
+Let $G$ and $H$ be the feet of the perpendiculars from $D$ to $AB$ and $AC$,
+respectively. Thus
+\[
+  DG \perp AB, \qquad DH \perp AC.
+\]
+Since $D$ lies on the circumcircle of $\triangle ABC$, by the Simson line
+theorem, the three feet $G,S,H$ are collinear.
+All ratios of collinear segments below are understood as directed ratios.
+
+Let
+\[
+  I \coloneq AL \cap GH.
+\]
+We first claim that $LP \parallel ID$. Indeed, since
+\[
+  PF \perp AB,\quad DG \perp AB,
+\]
+we have $PF \parallel DG$. Hence
+\[
+  \triangle AFP \sim \triangle AGD,
+\]
+and therefore
+\[
+  \frac{AF}{AG}=\frac{AP}{AD}.
+\]
+Similarly, since
+\[
+  PE \perp AC,\quad DH \perp AC,
+\]
+we have $PE \parallel DH$. Hence
+\[
+  \triangle AEP \sim \triangle AHD,
+\]
+and thus
+\[
+  \frac{AE}{AH}=\frac{AP}{AD}.
+\]
+Consequently,
+\[
+  \frac{AF}{AG}=\frac{AE}{AH},
+\]
+which implies
+\[
+  EF \parallel GH.
+\]
+
+Since $L,E,F$ are collinear and $I,G,H$ are collinear, this gives
+\[
+  LE \parallel IH.
+\]
+Moreover, applying the intercept theorem in triangle $AIG$, with
+$L\in AI$, $F\in AG$, and $LF\parallel IG$, gives
+\[
+  \frac{AL}{AI}=\frac{AF}{AG}.
+\]
+Therefore
+\[
+  \frac{AL}{AI}=\frac{AP}{AD}.
+\]
+Since $A,L,I$ are collinear and $A,P,D$ are collinear, it follows that
+\[
+  LP \parallel ID.
+\]
+
+Now
+\[
+  LE\parallel IH,\qquad LP\parallel ID,\qquad EP\parallel HD.
+\]
+Hence
+\[
+  \triangle ELP \sim \triangle HID.
+\]
+In particular,
+\[
+  \dang PLE=\dang DIH.
+\]
+
+It remains to prove that
+\[
+  \dang DIH=\dang DLS.
+\]
+Since $A,L,D,C$ are concyclic and $A,L,I$ are collinear, we have
+\[
+  \dang ILD=\dang ALD=\dang ACD.
+\]
+Also,
+\[
+  DS\perp BC,\qquad DH\perp AC,
+\]
+so
+\[
+  \angle DSC=\angle DHC=90^\circ.
+\]
+Thus $S,C,H,D$ are concyclic. Hence
+\[
+  \dang HSD=\dang HCD.
+\]
+Since $A,C,H$ are collinear, we have
+\[
+  \dang ACD=\dang HCD.
+\]
+Since $I,S,H$ are collinear, we have
+\[
+  \dang ISD=\dang HSD.
+\]
+Therefore
+\[
+  \dang ACD=\dang ISD.
+\]
+Together with $\dang ILD=\dang ACD$, this gives
+\[
+  \dang ILD=\dang ISD.
+\]
+Thus $I,L,D,S$ are concyclic.
+
+It follows that
+\[
+  \dang DLS=\dang DIS.
+\]
+Since $I,S,H$ are collinear, we have
+\[
+  \dang DIS=\dang DIH.
+\]
+Combining this with $\dang PLE=\dang DIH$, we obtain
+\[
+  \dang PLE=\dang DLS.
+\]
+Therefore, in ordinary angles,
+\[
+  \angle PLE=\angle SLD.
+\]
+This proves the desired result.
+\end{proof}
+
+\end{document}

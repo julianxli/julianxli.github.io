@@ -7,6 +7,9 @@
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.pre
+solution-*.asy
+solution-*.pdf
 *.bbl
 *.blg
 *.idx
