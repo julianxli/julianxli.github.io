@@ -90,7 +90,12 @@ main li,
 }
 
 .plain-link {
-  text-decoration: none;
+  text-decoration: none !important;
+}
+
+.plain-link:hover,
+.plain-link:focus {
+  text-decoration: none !important;
 }
 
 .photo-grid {
