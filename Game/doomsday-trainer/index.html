@@ -3,47 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Doomsday Trainer</title>
+    <title>Conway's Doomsday</title>
     <meta name="description" content="A minimal Conway Doomsday Algorithm trainer for practicing weekday calculation." />
+    <link rel="stylesheet" href="https://latex.vercel.app/style.min.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="app">
-      <section class="card" aria-label="Doomsday Trainer">
-        <header class="header">
-          <h1>Doomsday Trainer</h1>
-          <p>Conway weekday practice</p>
+    <main>
+      <article class="page-shell">
+        <header class="page-header">
+          <h1>Conway's Doomsday</h1>
         </header>
-
-        <div id="dateDisplay" class="date-display">0000-00-00</div>
-
-        <div class="answer-grid" aria-label="Weekday answers">
-          <button class="answer-button" data-answer="0">0 Sun</button>
-          <button class="answer-button" data-answer="1">1 Mon</button>
-          <button class="answer-button" data-answer="2">2 Tue</button>
-          <button class="answer-button" data-answer="3">3 Wed</button>
-          <button class="answer-button" data-answer="4">4 Thu</button>
-          <button class="answer-button" data-answer="5">5 Fri</button>
-          <button class="answer-button" data-answer="6">6 Sat</button>
-        </div>
-
-        <div id="feedback" class="feedback" aria-live="polite"></div>
-
-        <div class="controls">
-          <button id="nextButton" class="control-button primary">Next</button>
-          <button id="solutionButton" class="control-button">Show Solution</button>
-          <button id="resetButton" class="control-button">Reset</button>
-        </div>
-
-        <div id="solution" class="solution" aria-label="Solution"></div>
-
-        <footer class="stats">
-          <span>Total <strong id="totalStat">0</strong></span>
-          <span>Correct <strong id="correctStat">0</strong></span>
-          <span>Accuracy <strong id="accuracyStat">0.0%</strong></span>
-          <span>Streak <strong id="streakStat">0</strong></span>
-        </footer>
-      </section>
 
       <section class="explanation" aria-labelledby="explanation-title">
         <h2 id="explanation-title">原理：Conway's Doomsday Algorithm</h2>
@@ -60,8 +30,49 @@
 4 = Thursday
 5 = Friday
 6 = Saturday</code></pre>
+      </section>
 
-        <hr />
+      <section class="trainer-section" aria-labelledby="trainer-title">
+        <h2 id="trainer-title">Practice</h2>
+        <section class="trainer-card" aria-label="Doomsday Trainer">
+          <header class="header">
+            <h2>Doomsday Trainer</h2>
+            <p>Practice weekday calculation with the algorithm.</p>
+          </header>
+  
+          <div id="dateDisplay" class="date-display">0000-00-00</div>
+  
+          <div class="answer-grid" aria-label="Weekday answers">
+            <button class="answer-button" data-answer="0">0 Sun</button>
+            <button class="answer-button" data-answer="1">1 Mon</button>
+            <button class="answer-button" data-answer="2">2 Tue</button>
+            <button class="answer-button" data-answer="3">3 Wed</button>
+            <button class="answer-button" data-answer="4">4 Thu</button>
+            <button class="answer-button" data-answer="5">5 Fri</button>
+            <button class="answer-button" data-answer="6">6 Sat</button>
+          </div>
+  
+          <div id="feedback" class="feedback" aria-live="polite"></div>
+  
+          <div class="controls">
+            <button id="nextButton" class="control-button primary">Next</button>
+            <button id="solutionButton" class="control-button">Show Solution</button>
+            <button id="resetButton" class="control-button">Reset</button>
+          </div>
+  
+          <div id="solution" class="solution" aria-label="Solution"></div>
+  
+          <footer class="stats">
+            <span>Total <strong id="totalStat">0</strong></span>
+            <span>Correct <strong id="correctStat">0</strong></span>
+            <span>Accuracy <strong id="accuracyStat">0.0%</strong></span>
+            <span>Streak <strong id="streakStat">0</strong></span>
+          </footer>
+        </section>
+      </section>
+
+      <section class="explanation continuation" aria-label="Doomsday Algorithm Details">
+<hr />
 
         <h3>1. 为什么可以用 mod 7 计算星期？</h3>
 
@@ -466,6 +477,7 @@ s = floor(2 / 4) = 0</code></pre>
 
         <p>练熟之后，你看到一个日期时，不需要查日历，也能在几秒内算出它是星期几。</p>
       </section>
+      </article>
     </main>
 
     <script src="script.js"></script>
