@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doomsday Trainer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="card" aria-label="Doomsday Trainer">
+        <header class="header">
+          <h1>Doomsday Trainer</h1>
+          <p>Conway weekday practice</p>
+        </header>
+
+        <div id="dateDisplay" class="date-display">0000-00-00</div>
+
+        <div class="answer-grid" aria-label="Weekday answers">
+          <button class="answer-button" data-answer="0">0 Sun</button>
+          <button class="answer-button" data-answer="1">1 Mon</button>
+          <button class="answer-button" data-answer="2">2 Tue</button>
+          <button class="answer-button" data-answer="3">3 Wed</button>
+          <button class="answer-button" data-answer="4">4 Thu</button>
+          <button class="answer-button" data-answer="5">5 Fri</button>
+          <button class="answer-button" data-answer="6">6 Sat</button>
+        </div>
+
+        <div id="feedback" class="feedback" aria-live="polite"></div>
+
+        <div class="controls">
+          <button id="nextButton" class="control-button primary">Next</button>
+          <button id="solutionButton" class="control-button">Show Solution</button>
+          <button id="resetButton" class="control-button">Reset</button>
+        </div>
+
+        <div id="solution" class="solution" aria-label="Solution"></div>
+
+        <footer class="stats">
+          <span>Total <strong id="totalStat">0</strong></span>
+          <span>Correct <strong id="correctStat">0</strong></span>
+          <span>Accuracy <strong id="accuracyStat">0.0%</strong></span>
+          <span>Streak <strong id="streakStat">0</strong></span>
+        </footer>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
