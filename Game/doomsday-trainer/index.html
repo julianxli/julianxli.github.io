@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doomsday Trainer</title>
+    <meta name="description" content="A minimal Conway Doomsday Algorithm trainer for practicing weekday calculation." />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -42,6 +43,428 @@
           <span>Accuracy <strong id="accuracyStat">0.0%</strong></span>
           <span>Streak <strong id="streakStat">0</strong></span>
         </footer>
+      </section>
+
+      <section class="explanation" aria-labelledby="explanation-title">
+        <h2 id="explanation-title">原理：Conway's Doomsday Algorithm</h2>
+        <p>这个小游戏基于数学家 John H. Conway 提出的 <strong>Doomsday Algorithm</strong>，中文常译为“末日算法”。它的目标是：给定一个公历日期，快速心算出它是星期几。</p>
+
+        <p>这里的 “Doomsday” 不是灾难意义上的“末日”，而是指某一年中一组特殊日期共同落在的那个星期几。这个星期几叫这一年的 <strong>Doomsday</strong>。</p>
+
+        <p>本游戏采用下面的星期编号：</p>
+
+        <pre><code>0 = Sunday
+1 = Monday
+2 = Tuesday
+3 = Wednesday
+4 = Thursday
+5 = Friday
+6 = Saturday</code></pre>
+
+        <hr />
+
+        <h3>1. 为什么可以用 mod 7 计算星期？</h3>
+
+        <p>星期每 7 天循环一次，所以日期和星期的关系本质上是一个 <strong>mod 7</strong> 问题。</p>
+
+        <p>如果某一天是 Saturday，编号为 6，那么 6 天之后就是：</p>
+
+        <pre><code>6 + 6 = 12
+12 mod 7 = 5
+5 = Friday</code></pre>
+
+        <p>所以只要知道某个已知日期的星期，就可以通过日期差推出另一个日期的星期。</p>
+
+        <p>Doomsday Algorithm 的核心就是为每一年找出一批容易记忆的“已知日期”。</p>
+
+        <hr />
+
+        <h3>2. 什么是 Doomsday？</h3>
+
+        <p>在同一年中，下面这些日期总是落在同一个星期几：</p>
+
+        <pre><code>3/14
+4/4
+6/6
+8/8
+10/10
+12/12</code></pre>
+
+        <pre><code>5/9
+9/5
+7/11
+11/7</code></pre>
+
+        <p>这些日期共同落在的星期几，就叫这一年的 <strong>Doomsday</strong>。</p>
+
+        <p>例如，如果某一年的 Doomsday 是 Saturday，那么这一年里：</p>
+
+        <pre><code>3/14 是 Saturday
+4/4 是 Saturday
+6/6 是 Saturday
+8/8 是 Saturday
+10/10 是 Saturday
+12/12 是 Saturday
+5/9 是 Saturday
+9/5 是 Saturday
+7/11 是 Saturday
+11/7 是 Saturday</code></pre>
+
+        <p>一月和二月稍微特殊，因为闰年会多出 2 月 29 日：</p>
+
+        <p>普通年：<br />
+        1/3, 2/28</p>
+
+        <p>闰年：<br />
+        1/4, 2/29</p>
+
+        <hr />
+
+        <h3>3. 为什么这些日期会落在同一个星期几？</h3>
+
+        <p>这是因为它们之间相差的天数都是 7 的倍数。</p>
+
+        <p>例如：</p>
+
+        <pre><code>4/4 到 6/6 相差 63 天
+63 = 9 × 7</code></pre>
+
+        <p>所以 4/4 和 6/6 一定是同一个星期几。</p>
+
+        <p>同理，6/6、8/8、10/10、12/12 之间的差距也都是 7 的倍数。奇数月份的日期则可以用口诀记忆：</p>
+
+        <p>I work from 9 to 5 at the 7-Eleven.</p>
+
+        <p>对应：</p>
+
+        <p>9/5, 5/9, 7/11, 11/7</p>
+
+        <p>这些日期不是随便选出来的，而是 Conway 选择的一组容易记忆、并且彼此相差 7 的倍数的日期。</p>
+
+        <hr />
+
+        <h3>4. 问题转化：只需要算出这一年的 Doomsday</h3>
+
+        <p>如果我们知道 2026 年的 Doomsday 是 Saturday，那么计算 2026-06-12 就很简单。</p>
+
+        <p>因为六月的 Doomsday 日期是：</p>
+
+        <p>6/6</p>
+
+        <p>所以：</p>
+
+        <p>2026-06-06 是 Saturday<br />
+        2026-06-12 比 6/6 晚 6 天<br />
+        Saturday + 6 = Friday</p>
+
+        <p>因此：</p>
+
+        <p>2026-06-12 = Friday</p>
+
+        <p>所以整个算法真正要解决的问题是：</p>
+
+        <p>怎样快速算出某一年的 Doomsday？</p>
+
+        <hr />
+
+        <h3>5. 年份计算的结构</h3>
+
+        <p>公历中，普通年有 365 天：</p>
+
+        <p>365 = 52 × 7 + 1</p>
+
+        <p>所以普通年会让下一年的同一日期星期数往后移动 1 天。</p>
+
+        <p>闰年有 366 天：</p>
+
+        <p>366 = 52 × 7 + 2</p>
+
+        <p>所以闰年会让下一年的同一日期星期数往后移动 2 天。</p>
+
+        <p>因此，在同一个世纪内部，从世纪初到某一年，Doomsday 的变化主要取决于：</p>
+
+        <p>经过了多少个年份<br />
+        其中有多少个闰年</p>
+
+        <p>如果年份后两位是 y，那么从世纪初到这一年，大致贡献是：</p>
+
+        <p>y + floor(y / 4)</p>
+
+        <p>因为每经过一年，星期往后移动 1；每遇到一个闰年，再额外多移动 1。</p>
+
+        <p>不过 Conway 为了方便心算，把这个式子改写成了更适合口算的形式。</p>
+
+        <p>令：</p>
+
+        <pre><code>q = floor(y / 12)
+r = y mod 12
+s = floor(r / 4)</code></pre>
+
+        <p>则：</p>
+
+        <p>year offset = q + r + s</p>
+
+        <p>这个结果与：</p>
+
+        <p>y + floor(y / 4)</p>
+
+        <p>在 mod 7 意义下是一样的，但 ÷12 的版本更适合心算。</p>
+
+        <p>原因是：</p>
+
+        <pre><code>y = 12q + r
+floor(y/4) = 3q + floor(r/4)</code></pre>
+
+        <p>所以：</p>
+
+        <pre><code>y + floor(y/4)
+= 12q + r + 3q + floor(r/4)
+= 15q + r + floor(r/4)</code></pre>
+
+        <p>而：</p>
+
+        <p>15q ≡ q   (mod 7)</p>
+
+        <p>因为：</p>
+
+        <p>15 ≡ 1   (mod 7)</p>
+
+        <p>因此：</p>
+
+        <p>y + floor(y/4) ≡ q + r + floor(r/4)   (mod 7)</p>
+
+        <p>这就是 Conway 年份心算法的来源。</p>
+
+        <hr />
+
+        <h3>6. 什么是 century anchor day？</h3>
+
+        <p>现在还差一个起点。</p>
+
+        <p>如果只知道年份后两位 y，还不够。比如：</p>
+
+        <p>1926<br />
+        2026<br />
+        2126</p>
+
+        <p>它们的后两位都是 26，但它们属于不同世纪，所以起点不同。</p>
+
+        <p>每个世纪都有一个基准星期，叫 <strong>century anchor day</strong>。它表示该世纪起始年份的 Doomsday。例如 2000s 的 anchor day 是 2000 年的 Doomsday。</p>
+
+        <p>例如：</p>
+
+        <pre><code>1900s → Wednesday = 3
+2000s → Tuesday = 2
+2100s → Sunday = 0
+2200s → Friday = 5</code></pre>
+
+        <p>也就是说：</p>
+
+        <p>1900 年的 Doomsday 是 Wednesday<br />
+        2000 年的 Doomsday 是 Tuesday<br />
+        2100 年的 Doomsday 是 Sunday<br />
+        2200 年的 Doomsday 是 Friday</p>
+
+        <p>这个基准星期就是该世纪计算所有年份的起点。</p>
+
+        <hr />
+
+        <h3>7. century anchor day 为什么会循环？</h3>
+
+        <p>公历的闰年规则是：</p>
+
+        <p>普通年份：能被 4 整除的是闰年<br />
+        世纪年份：必须能被 400 整除才是闰年</p>
+
+        <p>所以：</p>
+
+        <p>1600 是闰年<br />
+        1700 不是闰年<br />
+        1800 不是闰年<br />
+        1900 不是闰年<br />
+        2000 是闰年</p>
+
+        <p>公历每 400 年完整循环一次。400 年的总天数是：</p>
+
+        <p>400 × 365 + 97 = 146097</p>
+
+        <p>而：</p>
+
+        <p>146097 = 20871 × 7</p>
+
+        <p>也就是说，400 年的总天数正好是 7 的倍数。</p>
+
+        <p>因此，公历中的星期模式每 400 年重复一次。century anchor day 也每 400 年重复一次。</p>
+
+        <p>这就是为什么：</p>
+
+        <p>1600s 和 2000s 的 century anchor day 相同<br />
+        1700s 和 2100s 的 century anchor day 相同<br />
+        1800s 和 2200s 的 century anchor day 相同<br />
+        1900s 和 2300s 的 century anchor day 相同</p>
+
+        <p>常用表如下：</p>
+
+        <pre><code>1600s → Tuesday = 2
+1700s → Sunday = 0
+1800s → Friday = 5
+1900s → Wednesday = 3</code></pre>
+
+        <pre><code>2000s → Tuesday = 2
+2100s → Sunday = 0
+2200s → Friday = 5
+2300s → Wednesday = 3</code></pre>
+
+        <p>在 Gregorian calendar 且使用 Sunday = 0, Monday = 1, ..., Saturday = 6 的编号下，可以使用下面的公式。</p>
+
+        <p>设：</p>
+
+        <p>century = floor(year / 100)</p>
+
+        <p>则：</p>
+
+        <p>century anchor = (5 × (century mod 4) + 2) mod 7</p>
+
+        <p>例如 2026 年：</p>
+
+        <pre><code>century = 20
+20 mod 4 = 0</code></pre>
+
+        <pre><code>century anchor = (5 × 0 + 2) mod 7
+               = 2
+               = Tuesday</code></pre>
+
+        <p>所以 2000s 的 century anchor day 是 Tuesday。</p>
+
+        <hr />
+
+        <h3>8. 完整算法</h3>
+
+        <p>给定一个日期：</p>
+
+        <p>year-month-day</p>
+
+        <p>第一步，算 century anchor day：</p>
+
+        <pre><code>century = floor(year / 100)
+century anchor = (5 × (century mod 4) + 2) mod 7</code></pre>
+
+        <p>第二步，取年份后两位：</p>
+
+        <p>y = year mod 100</p>
+
+        <p>第三步，算年份偏移：</p>
+
+        <pre><code>q = floor(y / 12)
+r = y mod 12
+s = floor(r / 4)</code></pre>
+
+        <p>year offset = q + r + s</p>
+
+        <p>第四步，算该年的 Doomsday：</p>
+
+        <p>year doomsday = century anchor + year offset   (mod 7)</p>
+
+        <p>第五步，找到该月份的 Doomsday 日期。</p>
+
+        <p>普通年：</p>
+
+        <pre><code>Jan 3
+Feb 28
+Mar 14
+Apr 4
+May 9
+Jun 6
+Jul 11
+Aug 8
+Sep 5
+Oct 10
+Nov 7
+Dec 12</code></pre>
+
+        <p>闰年：</p>
+
+        <pre><code>Jan 4
+Feb 29
+其他月份不变</code></pre>
+
+        <p>第六步，计算目标日期和该月份 Doomsday 日期的差：</p>
+
+        <p>offset = target day - month doomsday day</p>
+
+        <p>最后：</p>
+
+        <p>final weekday = year doomsday + offset   (mod 7)</p>
+
+        <hr />
+
+        <h3>9. 例子：计算 2026-06-12</h3>
+
+        <p>先算 century anchor day。</p>
+
+        <p>2026 属于 2000s：</p>
+
+        <pre><code>century = 20
+20 mod 4 = 0</code></pre>
+
+        <pre><code>century anchor = (5 × 0 + 2) mod 7
+               = 2
+               = Tuesday</code></pre>
+
+        <p>再算年份后两位：</p>
+
+        <p>y = 26</p>
+
+        <p>使用 Conway 的年份心算法：</p>
+
+        <p>26 = 2 × 12 + 2</p>
+
+        <pre><code>q = 2
+r = 2
+s = floor(2 / 4) = 0</code></pre>
+
+        <p>year offset = 2 + 2 + 0 = 4</p>
+
+        <p>所以 2026 年的 Doomsday 是：</p>
+
+        <pre><code>Tuesday + 4
+= 2 + 4
+= 6
+= Saturday</code></pre>
+
+        <p>六月的 Doomsday 日期是：</p>
+
+        <p>6/6</p>
+
+        <p>所以：</p>
+
+        <p>2026-06-06 是 Saturday<br />
+        2026-06-12 比 6/6 晚 6 天</p>
+
+        <p>因此：</p>
+
+        <pre><code>Saturday + 6
+= 6 + 6
+= 12
+12 mod 7 = 5
+5 = Friday</code></pre>
+
+        <p>最终：</p>
+
+        <p>2026-06-12 = Friday = 5</p>
+
+        <hr />
+
+        <h3>10. 这个游戏训练的是什么？</h3>
+
+        <p>这个游戏不是让你死记每个日期的答案，而是训练你快速完成四个步骤：</p>
+
+        <p>1. 找 century anchor day<br />
+        2. 算 year doomsday<br />
+        3. 找 month doomsday date<br />
+        4. 用 mod 7 推出最终星期</p>
+
+        <p>练熟之后，你看到一个日期时，不需要查日历，也能在几秒内算出它是星期几。</p>
       </section>
     </main>
 
